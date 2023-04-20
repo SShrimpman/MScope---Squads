@@ -1,9 +1,9 @@
 <template>
-  <h1 class="text-green text-center text-5xl mt-36">
+  <p class="text-lightBlue text-center text-5xl mt-36 font-bold">
     Hello Guys!
-  </h1>
-  <span class="flex text-green justify-center text-xl mt-10">
-    Choose one the Buttons to go to that Page!
+  </p>
+  <span class="flex text-lightBlue justify-center text-xl mt-10">
+    Choose one of the Buttons to go to that Page!
   </span>
   <div class="flex justify-center mt-16 space-x-16">
     <Button :text="'List Users'" @click="listUsers"/>
@@ -11,14 +11,19 @@
     <Button :text="'Create User'" @click="createUser"/>
     <Button :text="'Create Squad'" @click="createSquad"/>
   </div>
+  <div class="flex justify-center mt-16">
+    <Card />
+  </div>
 </template>
 
 <script>
 import Button from './widgets/Button.vue';
+import Card from './widgets/Card.vue';
 
   export default {
     components: {
-      Button
+      Button,
+      Card
     },
     methods: {
       listUsers(){
