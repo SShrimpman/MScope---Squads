@@ -3,5 +3,9 @@
 @tailwind utilities;
 
 :root {
-  background-color: #242424;
+  /* background-color: #242424; */
+  font-family: 'Inter', sans-serif;
+  background-image: url('./assets/bgImage.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
 }
