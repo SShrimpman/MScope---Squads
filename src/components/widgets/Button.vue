@@ -15,7 +15,7 @@
 
 <style>
 .button {
- --color: #00A97F;
+ --color: #9fd1ff;
  padding: 0.8em 1.7em;
  background-color: transparent;
  border-radius: .3em;
@@ -23,11 +23,10 @@
  overflow: hidden;
  cursor: pointer;
  transition: .5s;
- font-weight: 400;
+ font-weight: 700;
  font-size: 17px;
  border: 1px solid;
  font-family: inherit;
- text-transform: uppercase;
  color: var(--color);
  z-index: 1;
 }
