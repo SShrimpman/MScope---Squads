@@ -16,6 +16,7 @@ export default {
       },
       width: {
         '500': '500px',
+        '900': '900px',
         '100': '100%'
       },
       borderRadius: {
@@ -27,6 +28,9 @@ export default {
       },
       backgroundImage: {
         'card': 'linear-gradient(144deg,#AF40FF, #5B42F3 50%,#00DDEB)'
+      },
+      zIndex: {
+        '1': '1',
       }
     }
   },

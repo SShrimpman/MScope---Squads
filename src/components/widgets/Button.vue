@@ -8,14 +8,13 @@
             text: {
                 type: String,
                 required: true,
-            }
+            },
         }
     }
 </script>
 
 <style>
 .button {
- --color: #9fd1ff;
  padding: 0.8em 1.7em;
  background-color: transparent;
  border-radius: .3em;
@@ -27,7 +26,7 @@
  font-size: 17px;
  border: 1px solid;
  font-family: inherit;
- color: var(--color);
+ color: #9fd1ff;
  z-index: 1;
 }
 
@@ -40,7 +39,7 @@
  position: absolute;
  border-radius: 50%;
  z-index: -1;
- background-color: var(--color);
+ background-color: #9fd1ff;
  transition: 1s ease;
 }
 
