@@ -55,10 +55,6 @@
  width: 410px;
 }
 
-#buttonList:hover {
- color: #9fd1ff;
-}
-
 #buttonList:active {
  filter: brightness(.8);
 }
