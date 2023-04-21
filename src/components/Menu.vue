@@ -1,4 +1,7 @@
 <template>
+    <h1 class="text-black2 text-center text-5xl mt-28 font-bold">
+        {{ title }}
+    </h1>
     <div class="flex justify-center mt-8 gap-5">
         <MenuButton :text="'List Users'" @click="listUsers" />
         <MenuButton :text="'List Squads'" @click="listSquads" />
@@ -11,6 +14,12 @@
 import MenuButton from './widgets/MenuButton.vue';
 
 export default {
+    props: {
+        title: {
+            type: String,
+            required: true,
+        },
+    },
     components: {
         MenuButton
     },

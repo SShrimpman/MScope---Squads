@@ -1,8 +1,5 @@
 <template>
-    <h1 class="text-lightBlue text-center text-5xl mt-28 font-bold">
-        List Squads
-    </h1>
-    <Menu/>
+    <Menu :title="'List Squads'"/>
     <div class="grid grid-cols-3 mt-8">
         <div class="flex justify-center mb-8">
             <Card />

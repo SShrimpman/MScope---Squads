@@ -1,8 +1,5 @@
 <template>
-    <h1 class="text-lightBlue text-center text-5xl mt-28 font-bold">
-        Create User
-    </h1>
-    <Menu/>
+    <Menu :title="'Create User'"/>
     <form @submit.prevent="newUser($event)">
         <div class="flex justify-center h-48 mt-8">
             <div class="grid grid-cols-1 p-2 w-500 bg-lightBlue rounded-lg">
