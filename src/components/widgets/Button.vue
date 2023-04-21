@@ -1,5 +1,5 @@
 <template>
-    <button class="button"> {{ text }} </button>
+    <button id="buttonList"> {{ text }} </button>
 </template>
 
 <script>
@@ -14,8 +14,7 @@
 </script>
 
 <style>
-.button {
- padding: 0.8em 1.7em;
+#buttonList {
  background-color: transparent;
  border-radius: .3em;
  position: relative;
@@ -23,46 +22,44 @@
  cursor: pointer;
  transition: .5s;
  font-weight: 700;
- font-size: 17px;
+ font-size: 15px;
  border: 1px solid;
  font-family: inherit;
- color: #9fd1ff;
  z-index: 1;
 }
 
-.button::before, .button::after {
+#buttonList::before, #buttonList::after {
  content: '';
  display: block;
- width: 50px;
- height: 50px;
+ width: 40px;
+ height: 40px;
  transform: translate(-50%, -50%);
  position: absolute;
  border-radius: 50%;
  z-index: -1;
- background-color: #9fd1ff;
  transition: 1s ease;
 }
 
-.button::before {
+#buttonList::before {
  top: -1em;
  left: -1em;
 }
 
-.button::after {
+#buttonList::after {
  left: calc(100% + 1em);
  top: calc(100% + 1em);
 }
 
-.button:hover::before, .button:hover::after {
+#buttonList:hover::before, #buttonList:hover::after {
  height: 410px;
  width: 410px;
 }
 
-.button:hover {
- color: rgb(10, 25, 30);
+#buttonList:hover {
+ color: #9fd1ff;
 }
 
-.button:active {
+#buttonList:active {
  filter: brightness(.8);
 }
 </style>

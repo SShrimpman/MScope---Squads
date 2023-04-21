@@ -26,7 +26,7 @@
  font-size: 17px;
  border: 1px solid;
  font-family: inherit;
- color: green;
+ color: #9fd1ff;
  z-index: 1;
 }
 
@@ -39,7 +39,7 @@
  position: absolute;
  border-radius: 50%;
  z-index: -1;
- background-color: green;
+ background-color: #9fd1ff;
  transition: 1s ease;
 }
 
@@ -59,7 +59,7 @@
 }
 
 .button:hover {
- color: rgb(10, 25, 30);
+ color: #152243;
 }
 
 .button:active {
