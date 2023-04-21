@@ -12,7 +12,7 @@
                     Members
                 </div>
                 <div class="grid content-end m-2 ml-28">
-                    <Button :text="'Details'"/>
+                    <MenuButton :text="'Details'"/>
                 </div> 
             </div>
         </div>
@@ -20,11 +20,11 @@
 </template>
 
 <script>
-import Button from './Button.vue';
+import MenuButton from './MenuButton.vue';
 
 export default {
     components: {
-        Button
+        MenuButton
     }
 }
 </script>
