@@ -7,7 +7,10 @@ export default {
   theme: {
     extend: {
       colors: {
-        'lightBlue': '#9fd1ff',
+        'transparentBg': 'rgba(0,0,0,.4)',
+        'darkBlue': '#152243',
+        'white2': '#FCFCFD',
+        'black2': '#282828',
         'background': '#05062D'
       },
       height: {
