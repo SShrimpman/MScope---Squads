@@ -1,32 +1,25 @@
 <template>
-    <h1 class="text-lightBlue text-center text-5xl mt-28 font-bold">
-        List Users
-    </h1>
-    <Menu />
+    <Menu :title="'List Users'" />
     <div class="flex justify-center mt-8">
-        <div class="grid grid-cols-3 w-900 text-center rounded-t-xl bg-blue-500 h-16 content-center">
-            <div class="font-lg font-bold">
-                Name
+        <div class="border-4 border-black2 rounded-xl w-900">
+            <div class="grid grid-cols-3 text-center rounded-t-lg bg-blue-500 h-16 content-center">
+                <div v-for="title in titles" class="font-lg font-bold text-black2"> {{ title.name }} </div>
             </div>
-            <div class="font-lg font-bold">
-                Role
-            </div>
-            <div class="font-lg font-bold">
-                Actions
-            </div>
-        </div>
-    </div>
-    <div v-for="(user, index) in getUsers" :key="user.id" class="flex justify-center">
-        <div :class="{ 'rounded-b-xl': isLastUser(index) }"
-            class="grid grid-cols-3 w-900 text-center bg-lightBlue h-16 content-center">
-            <div class="font-lg"> {{ user.fullName }} </div>
-            <div class="font-lg"> {{ user.role }} </div>
-            <div class="flex-justify-center space-x-2">
-                <Button :text="'Edit'" class="text-blue-600 before:bg-blue-600 after:bg-blue-600 py-0.5 px-5" />
-                <Button :text="'Delete'" class="text-red-600 before:bg-red-600 after:bg-red-600 py-0.5 px-3.5" />
+            <div v-for="(user, index) in getUsers" :key="user.id">
+                <div :class="{ 'rounded-b-lg': isLastUser(index) }"
+                    class="grid grid-cols-3 w-full text-center bg-white2 h-16 content-center">
+                    <div class="font-lg text-darkBlue"> {{ user.fullName }} </div>
+                    <div class="font-lg text-darkBlue"> {{ user.role }} </div>
+                    <div class="flex-justify-center space-x-2">
+                        <Button :text="'Edit'" class="text-blue-600 hover:text-black2 before:bg-blue-600 after:bg-blue-600 py-0.5 px-5" />
+                        <Button :text="'Delete'" class="text-red-600 hover:text-black2 before:bg-red-600 after:bg-red-600 py-0.5 px-3.5"
+                            @click="toggleDelete(user)" />
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+    <ConfirmationDelete v-if="deleteUser" :userToDelete="userToDelete" @userDeleted="deleteThisUser"  @cancelUser="toggleDelete"/>
 </template>
 
 <script>
@@ -34,11 +27,13 @@ import Button from './widgets/Button.vue';
 import Menu from './Menu.vue';
 import { mapState } from 'pinia';
 import { userStore } from '../stores/userStore';
+import ConfirmationDelete from './Popups/ConfirmationDelete.vue';
 
 export default {
     components: {
         Menu,
-        Button
+        Button,
+        ConfirmationDelete
     },
     setup() {
         const userStoreT = userStore()
@@ -48,6 +43,19 @@ export default {
         return {
             count: 0,
             option: null,
+            userToDelete : null,
+            deleteUser: false,
+            titles: [
+                {
+                    name: 'Name'
+                },
+                {
+                    name: 'Role'
+                },
+                {
+                    name: 'Actions'
+                }
+            ]
         };
     },
     computed: {
@@ -56,5 +64,15 @@ export default {
             return (index) => index === this.getUsers.length - 1;
         }
     },
+    methods: {
+        toggleDelete(user) {
+            this.deleteUser = !this.deleteUser;
+            this.userToDelete = user;
+        },
+        deleteThisUser(userToDelete){
+            this.deleteUser = !this.deleteUser;
+            this.userStoreT.delete(userToDelete)
+        }
+    }
 }
 </script>
