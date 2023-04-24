@@ -3,6 +3,7 @@ export default class squad {
         this.id = null,
         this.squadName = '',
         this.reference = '',
-        this.members = []
+        this.members = ''
+        // this.members = []
     }
 }
