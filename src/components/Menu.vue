@@ -3,15 +3,15 @@
         {{ title }}
     </h1>
     <div class="flex justify-center mt-8 gap-5">
-        <MenuButton :text="'List Users'" @click="listUsers" />
-        <MenuButton :text="'List Squads'" @click="listSquads" />
-        <MenuButton :text="'Create User'" @click="createUser" />
-        <MenuButton :text="'Create Squad'" @click="createSquad" />
+        <Button :text="'List Users'" class="text-black2 hover:text-white2 before:bg-black2 after:bg-black2 py-6 px-6" @click="listUsers" />
+        <Button :text="'List Squads'" class="text-black2 hover:text-white2 before:bg-black2 after:bg-black2 py-6 px-6" @click="listSquads" />
+        <Button :text="'Create User'" class="text-black2 hover:text-white2 before:bg-black2 after:bg-black2 py-6 px-6" @click="createUser" />
+        <Button :text="'Create Squad'" class="text-black2 hover:text-white2 before:bg-black2 after:bg-black2 py-6 px-5" @click="createSquad" />
     </div>
 </template>
 
 <script>
-import MenuButton from './widgets/MenuButton.vue';
+import Button from './widgets/Button.vue';
 
 export default {
     props: {
@@ -21,7 +21,7 @@ export default {
         },
     },
     components: {
-        MenuButton
+        Button
     },
     methods: {
         listUsers() {

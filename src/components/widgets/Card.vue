@@ -1,6 +1,6 @@
 <template>
     <div class="h-250 w-500 rounded-outside p-1.5 shadow-box bg-card">
-        <div class="grid grid-rows-3 rounded-inside h-100 w-100 bg-background text-lightBlue">
+        <div class="grid grid-rows-3 rounded-inside h-100 w-100 bg-background">
             <div class="font-bold ml-3 mt-1 text-l">
                 Reference
             </div>
@@ -12,7 +12,7 @@
                     Members
                 </div>
                 <div class="grid content-end m-2 ml-28">
-                    <MenuButton :text="'Details'"/>
+                    <Button :text="'Details'" class="text-white2 hover:text-background before:bg-white after:bg-white py-3.5"/>
                 </div> 
             </div>
         </div>
@@ -20,11 +20,11 @@
 </template>
 
 <script>
-import MenuButton from './MenuButton.vue';
+import Button from './Button.vue';
 
 export default {
     components: {
-        MenuButton
+        Button
     }
 }
 </script>
