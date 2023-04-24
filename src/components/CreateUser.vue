@@ -12,12 +12,13 @@
                 </div>
                 <div class="flex justify-center items-end gap-2">
                     <Button :text="'Save'" class="text-blue-600 before:bg-blue-600 after:bg-blue-600 py-0.5 px-3.5"/>
-                    <Button :text="'Delete'" class="text-red-600 before:bg-red-600 after:bg-red-600 py-0.5 px-3.5" @click="cancel"/>
+                    <Button :text="'Cancel'" class="text-red-600 before:bg-red-600 after:bg-red-600 py-0.5 px-3.5" @click="cancel"/>
                 </div>
             </div>
         </div>
     </form>
 </template>
+
 <script>
 import user from '../models/user'
 import { userStore } from '../stores/userStore'
