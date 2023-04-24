@@ -26,8 +26,8 @@ export const userStore = defineStore('userStore', {
         },
         update(user) {
             try {
-                this.users[this.users.findIndex(userFind => userFind.id == user.id)] = user
-                this.userEdit = user;
+                const userToEdit = this.users.map(user => user.id).indexOf(user)
+                this.userEdit = userToEdit;
             } catch (error) {
                 throw error
             }
