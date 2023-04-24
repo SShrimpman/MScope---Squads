@@ -1,6 +1,6 @@
 <template>
     <Menu :title="'List Squads'"/>
-    <div class="grid grid-cols-3 mt-8">
+    <div class="grid grid-cols-3 mt-8 text-white2">
         <div class="flex justify-center mb-8">
             <Card />
         </div>
