@@ -1,17 +1,20 @@
 <template>
     <Menu :title="'Create User'"/>
-    <form @submit.prevent="newUser($event)">
+    <form>
         <div class="flex justify-center h-48 mt-8">
             <div class="grid grid-cols-1 p-2 w-500 bg-lightBlue rounded-lg">
                 <div class="flex justify-center">
                     <div class="grid content-center">
-                        <input class="h-7 w-96 p-1 m-2" type="text" placeholder="Name" v-model="addUser.fullName">
-                        <input class="h-7 w-96 p-1 m-2" type="text" placeholder="Role" v-model="addUser.role">
-                        <input class="h-7 w-96 p-1 m-2" type="text" placeholder="Photo" v-model="addUser.photo">
+                        <label class="h-7 w-96 p-1 text-lg"> Name </label>
+                        <input class="h-7 w-96 p-1 m-2" type="text" placeholder="Anthony Shrimp" v-model="addUser.fullName">
+                        <label class="h-7 w-96 p-1 text-lg"> Role </label>
+                        <input class="h-7 w-96 p-1 m-2" type="text" placeholder="Member" v-model="addUser.role">
+                        <label class="h-7 w-96 p-1 text-lg"> Photo </label>
+                        <input class="h-7 w-96 p-1 m-2" type="text" placeholder="myPhoto" v-model="addUser.photo">
                     </div>
                 </div>
                 <div class="flex justify-center items-end gap-2">
-                    <Button :text="'Save'" class="text-blue-600 before:bg-blue-600 after:bg-blue-600 py-0.5 px-3.5"/>
+                    <Button :text="'Save'" class="text-blue-600 before:bg-blue-600 after:bg-blue-600 py-0.5 px-3.5" @click="newUser"/>
                     <Button :text="'Cancel'" class="text-red-600 before:bg-red-600 after:bg-red-600 py-0.5 px-3.5" @click="cancel"/>
                 </div>
             </div>
@@ -39,13 +42,8 @@ export default {
             addUser: new user(),
         };
     },
-    computed: {
-        getContacts() {
-            return this.userStoreT.getUsers;
-        }
-    },
     methods: {
-        newUser(e) {
+        newUser() {
             if (this.addUser.id) {
                 this.userStoreT.update(this.addUser)
                 this.$router.push({ name: "ListUsers" });

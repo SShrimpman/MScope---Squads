@@ -10,15 +10,17 @@
                     <div class="font-lg text-darkBlue"> {{ user.fullName }} </div>
                     <div class="font-lg text-darkBlue"> {{ user.role }} </div>
                     <div class="flex-justify-center space-x-2">
-                        <Button :text="'Edit'" class="text-blue-600 hover:text-black2 before:bg-blue-600 after:bg-blue-600 py-0.5 px-5" />
-                        <Button :text="'Delete'" class="text-red-600 hover:text-black2 before:bg-red-600 after:bg-red-600 py-0.5 px-3.5"
-                            @click="toggleDelete(user)" />
+                        <Button :text="'Edit'" class="text-blue-600 hover:text-white2 before:bg-blue-600 after:bg-blue-600 py-0.5 px-5" 
+                            @click="toggleEditPopup(user)"/>
+                        <Button :text="'Delete'" class="text-red-600 hover:text-white2 before:bg-red-600 after:bg-red-600 py-0.5 px-3.5"
+                            @click="toggleDeletePopup(user)" />
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <ConfirmationDelete v-if="deleteUser" :userToDelete="userToDelete" @userDeleted="deleteThisUser"  @cancelUser="toggleDelete"/>
+    <ConfirmationDelete v-if="deleteUser" :userToDelete="userToDelete" @userDeleted="deleteThisUser"  @cancelUser="toggleDeletePopup"/>
+    <EditUser v-if="editUser" :userToEdit="userToEdit" @userEdited="editThisUser" @cancelEditUser="toggleEditPopup"/>
 </template>
 
 <script>
@@ -27,12 +29,14 @@ import Menu from './Menu.vue';
 import { mapState } from 'pinia';
 import { userStore } from '../stores/userStore';
 import ConfirmationDelete from './Popups/ConfirmationDelete.vue';
+import EditUser from './Popups/EditUser.vue';
 
 export default {
     components: {
         Menu,
         Button,
-        ConfirmationDelete
+        ConfirmationDelete,
+        EditUser
     },
     setup() {
         const userStoreT = userStore()
@@ -43,6 +47,7 @@ export default {
             count: 0,
             option: null,
             deleteUser: false,
+            editUser: false,
             titles: [
                 {
                     name: 'Name'
@@ -60,9 +65,17 @@ export default {
         ...mapState(userStore, ['getUsers', 'getCount']),
     },
     methods: {
-        toggleDelete(user) {
+        toggleEditPopup(user) {
+            this.editUser = !this.editUser;
+            this.userToEdit = user;
+        },
+        toggleDeletePopup(user) {
             this.deleteUser = !this.deleteUser;
             this.userToDelete = user;
+        },
+        editThisUser(userToEdit){
+            this.editUser = !this.editUser;
+            this.userStoreT.update(userToEdit)
         },
         deleteThisUser(userToDelete){
             this.deleteUser = !this.deleteUser;
