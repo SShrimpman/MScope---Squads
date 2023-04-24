@@ -5,9 +5,8 @@
             <div class="grid grid-cols-3 text-center rounded-t-lg bg-blue-500 h-16 content-center">
                 <div v-for="title in titles" class="font-lg font-bold text-black2"> {{ title.name }} </div>
             </div>
-            <div v-for="(user, index) in getUsers" :key="user.id">
-                <div :class="{ 'rounded-b-lg': isLastUser(index) }"
-                    class="grid grid-cols-3 w-full text-center bg-white2 h-16 content-center">
+            <div class="bg-white2 rounded-b-lg">
+                <div v-for="user in getUsers" :key="user.id" class="grid grid-cols-3 w-full text-center h-16 content-center">
                     <div class="font-lg text-darkBlue"> {{ user.fullName }} </div>
                     <div class="font-lg text-darkBlue"> {{ user.role }} </div>
                     <div class="flex-justify-center space-x-2">
@@ -43,7 +42,6 @@ export default {
         return {
             count: 0,
             option: null,
-            userToDelete : null,
             deleteUser: false,
             titles: [
                 {
@@ -60,9 +58,6 @@ export default {
     },
     computed: {
         ...mapState(userStore, ['getUsers', 'getCount']),
-        isLastUser() {
-            return (index) => index === this.getUsers.length - 1;
-        }
     },
     methods: {
         toggleDelete(user) {
@@ -71,7 +66,7 @@ export default {
         },
         deleteThisUser(userToDelete){
             this.deleteUser = !this.deleteUser;
-            this.userStoreT.delete(userToDelete)
+            this.userStoreT.delete(userToDelete.id)
         }
     }
 }

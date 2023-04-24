@@ -32,11 +32,11 @@ export const userStore = defineStore('userStore', {
                 throw error
             }
         },
-        delete(id) {
+        delete(user) {
             try {
-                id = uuidv4();
-                this.users.splice(id,1)
-                if(this.count>0) {
+                const userToDelete = this.users.map(user => user.id).indexOf(user)
+                this.users.splice( userToDelete, 1 )
+                if( this.count > 0 ) {
                     this.count--
                 }
             } catch (error) {
