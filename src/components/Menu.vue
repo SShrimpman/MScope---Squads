@@ -5,8 +5,8 @@
     <div class="flex justify-center mt-8 gap-5">
         <Button :text="'List Users'" class="text-black2 hover:text-white2 before:bg-black2 after:bg-black2 py-6 px-6" @click="listUsers" />
         <Button :text="'List Squads'" class="text-black2 hover:text-white2 before:bg-black2 after:bg-black2 py-6 px-6" @click="listSquads" />
-        <Button :text="'Create User'" class="text-black2 hover:text-white2 before:bg-black2 after:bg-black2 py-6 px-6" @click="createUser" />
-        <Button :text="'Create Squad'" class="text-black2 hover:text-white2 before:bg-black2 after:bg-black2 py-6 px-5" @click="createSquad" />
+        <Button v-if="user != 'Member'" :text="'Create User'" class="text-black2 hover:text-white2 before:bg-black2 after:bg-black2 py-6 px-6" @click="createUser" />
+        <Button v-if="user != 'Member'" :text="'Create Squad'" class="text-black2 hover:text-white2 before:bg-black2 after:bg-black2 py-6 px-5" @click="createSquad" />
     </div>
 </template>
 
@@ -19,6 +19,10 @@ export default {
             type: String,
             required: true,
         },
+        user: {
+            type: String,
+            required: true,
+        }
     },
     components: {
         Button
