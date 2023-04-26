@@ -5,13 +5,21 @@ import { useStorage } from '@vueuse/core'
 export const userStore = defineStore('userStore', {
     state: () => {
         return {
-            users: useStorage('users', []),
+            users: useStorage('users', [
+                // Pre-created user data
+                { id: uuidv4(), fullName: 'John Stream', role: 'TeamLeader', photo: 'a' },
+                { id: uuidv4(), fullName: 'Anthony Shrimp', role: 'Member', photo: 'o' }
+            ]),
+            user: null
         }
     },
     getters: {
         getUsers: (state) => state.users,
     },
     actions: {
+        login(user){
+            this.user = user
+        },
         add(user) {
             try {
                 user.id = uuidv4();
