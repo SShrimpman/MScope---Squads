@@ -19,7 +19,7 @@
             </div>
         </div>
     </div>
-    <ConfirmationDelete v-if="deleteUser" :userToDelete="userToDelete" @userDeleted="deleteThisUser"  @cancelUser="toggleDeletePopup"/>
+    <DeleteUser v-if="deleteUser" :userToDelete="userToDelete" @userDeleted="deleteThisUser"  @cancelUser="toggleDeletePopup"/>
     <EditUser v-if="editUser" :userToEdit="userToEdit" @userEdited="editThisUser" @cancelEditUser="toggleEditPopup"/>
 </template>
 
@@ -28,14 +28,14 @@ import Button from './widgets/Button.vue';
 import Menu from './Menu.vue';
 import { mapState } from 'pinia';
 import { userStore } from '../stores/userStore';
-import ConfirmationDelete from './Popups/ConfirmationDelete.vue';
+import DeleteUser from './Popups/DeleteUser.vue';
 import EditUser from './Popups/EditUser.vue';
 
 export default {
     components: {
         Menu,
         Button,
-        ConfirmationDelete,
+        DeleteUser,
         EditUser
     },
     setup() {
@@ -44,25 +44,17 @@ export default {
     },
     data() {
         return {
-            count: 0,
-            option: null,
             deleteUser: false,
             editUser: false,
             titles: [
-                {
-                    name: 'Name'
-                },
-                {
-                    name: 'Role'
-                },
-                {
-                    name: 'Actions'
-                }
+                { name: 'Name' },
+                { name: 'Role' },
+                { name: 'Actions' }
             ]
         };
     },
     computed: {
-        ...mapState(userStore, ['getUsers', 'getCount']),
+        ...mapState(userStore, ['getUsers']),
     },
     methods: {
         toggleEditPopup(user) {
@@ -75,7 +67,7 @@ export default {
         },
         editThisUser(userToEdit){
             this.editUser = !this.editUser;
-            this.userStoreT.update(userToEdit)
+            this.userStoreT.update(userToEdit);
         },
         deleteThisUser(userToDelete){
             this.deleteUser = !this.deleteUser;

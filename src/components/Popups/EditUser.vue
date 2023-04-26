@@ -9,7 +9,7 @@
                     <div class="flex justify-start col-span-3">Edit {{ userToEdit.fullName }}</div>
                 </div>
                 <div class="bg-white2 rounded-b-xl">
-                    <form>
+                    <form @submit.prevent="update">
                         <div class="flex justify-center h-58 mt-4">
                             <div class="grid grid-cols-1 p-2 gap-6 w-500 bg-lightBlue rounded-lg">
                                 <div class="grid grid-cols-3">
@@ -26,8 +26,7 @@
                                 </div>
                                 <div class="flex justify-center items-end gap-2 mb-2">
                                     <Button :text="'Save'"
-                                        class="text-blue-600 hover:text-white2 before:bg-blue-600 after:bg-blue-600 py-0.5 px-3.5" 
-                                        @click="update(userToEdit)"/>
+                                        class="text-blue-600 hover:text-white2 before:bg-blue-600 after:bg-blue-600 py-0.5 px-3.5" />
                                     <Button :text="'Cancel'"
                                         class="text-red-600 hover:text-white2 before:bg-red-600 after:bg-red-600 py-0.5 px-3.5"
                                         @click="cancel" />
@@ -55,8 +54,8 @@ export default {
         Button
     },
     methods: {
-        update(userToEdit){
-            this.$emit('userEdited', userToEdit)
+        update(){
+            this.$emit('userEdited', this.userToEdit)
         },
         cancel(){
             this.$emit('cancelEditUser')
