@@ -10,9 +10,8 @@
                         <label class="h-7 w-96 p-1 text-lg"> Reference </label>
                         <input class="h-7 w-96 p-1 m-2" type="text" placeholder="122333" v-model="addSquad.reference">
                         <label class="h-7 w-96 p-1 text-lg"> Members </label>
-                        <input class="h-7 w-96 p-1 m-2" type="text" placeholder="Members" v-model="addSquad.members">
-                        <select class="h-7 w-96 p-1 m-2">
-                            <option selected>Choose a member</option>
+                        <!-- <input class="h-7 w-96 p-1 m-2" type="text" placeholder="Members"> -->
+                        <select multiple class="block p-1 m-2" v-model="addSquad.members">
                             <option v-for="user in getUsers" :key="user.id">{{ user.fullName }}</option>
                         </select>
                     </div>
