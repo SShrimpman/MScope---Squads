@@ -1,7 +1,11 @@
 <template>
     <Menu :title="'List Squads'" :user="userLogged"/>
+    <div class="flex justify-center mt-8">
+        <input type="text" class="bg-white2 text-lg border-2 border-black2 h-12 w-900 pl-2 rounded-lg"
+         placeholder="Search for a Squad Here" v-model="search">
+    </div>
     <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 2xl:grid-cols-3 text-white2 mt-8 mb-8 sm:gap-10">
-        <div v-for="squad in getSquads" :key="squad.id" class="flex justify-center">
+        <div v-for="squad in filteredSquads" :key="squad.id" class="flex justify-center">
             <Card :squad="squad" @toggleEdit="toggleEditPopup" @toggleDelete="toggleDeletePopup(squad)" :user="userLogged"/>
         </div>
     </div>
@@ -33,10 +37,14 @@ export default {
         ...mapState(squadStore, ['getSquads']),
         userLogged() {
             return userStore().user.role;
+        },
+        filteredSquads(){
+            return this.getSquads.filter(squad => squad.squadName.toLowerCase().includes(this.search.toLowerCase()))
         }
     },
     data(){
         return {
+            search: '',
             deleteSquad: false,
             editSquad: false,
         }
