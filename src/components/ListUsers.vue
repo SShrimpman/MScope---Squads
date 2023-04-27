@@ -3,10 +3,10 @@
     <div class="flex justify-center mt-8">
         <div class="border-4 border-black2 rounded-xl w-900">
             <div v-if="userLogged == 'Member'" class="grid grid-cols-2 text-center rounded-t-lg bg-blue-500 h-16 content-center">
-                <div v-for="title in titlesMember" class="font-lg font-bold text-black2"> {{ title.name }} </div>
+                <div v-for="title in titlesMember" class="font-lg font-bold text-white2"> {{ title.name }} </div>
             </div>
             <div v-if="userLogged == 'TeamLeader'" class="grid grid-cols-3 text-center rounded-t-lg bg-blue-500 h-16 content-center">
-                <div v-for="title in titles" class="font-lg font-bold text-black2"> {{ title.name }} </div>
+                <div v-for="title in titles" class="font-lg font-bold text-white2"> {{ title.name }} </div>
             </div>
             <div v-if="userLogged == 'Member'" class="bg-white2 rounded-b-lg">
                 <div v-for="user in getUsers" :key="user.id" 
