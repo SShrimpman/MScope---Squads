@@ -14,7 +14,7 @@
                         <option disabled v-for="member in squad.members">{{ member }}</option>
                     </select>
                 </div>
-                <div class="grid grid-cols-2 gap-2 m-4 mr-4">
+                <div v-if="user != 'Member'" class="grid grid-cols-2 gap-2 m-4 mr-4">
                     <Button :text="'Edit'"
                         class="text-blue-600 hover:text-white2 before:bg-blue-600 after:bg-blue-600 py-3.5"
                         @click="toggleEdit(squad)" />
@@ -35,6 +35,10 @@ export default {
         squad: {
             type: Object,
             required: true
+        },
+        user: {
+            type: String,
+            required: true,
         }
     },
     data() {

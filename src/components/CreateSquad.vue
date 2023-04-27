@@ -1,5 +1,5 @@
 <template>
-    <Menu :title="'Create Squad'" />
+    <Menu :title="'Create Squad'" :user="userLogged"/>
     <form @submit.prevent="newSquad($event)">
         <div class="flex justify-center h-48 mt-8">
             <div class="grid grid-cols-1 p-2 w-500 bg-lightBlue rounded-lg">
@@ -51,6 +51,9 @@ export default {
     },
     computed: {
         ...mapState(userStore, ['getUsers']),
+        userLogged() {
+            return userStore().user.role;
+        }
     },
     methods: {
         newSquad(e) {

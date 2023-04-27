@@ -1,8 +1,8 @@
 <template>
-    <Menu :title="'List Squads'"/>
+    <Menu :title="'List Squads'" :user="userLogged"/>
     <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 2xl:grid-cols-3 text-white2 mt-8 mb-8 sm:gap-10">
         <div v-for="squad in getSquads" :key="squad.id" class="flex justify-center">
-            <Card :squad="squad" @toggleEdit="toggleEditPopup" @toggleDelete="toggleDeletePopup(squad)"/>
+            <Card :squad="squad" @toggleEdit="toggleEditPopup" @toggleDelete="toggleDeletePopup(squad)" :user="userLogged"/>
         </div>
     </div>
     <DeleteSquad v-if="deleteSquad" :squadToDelete="squadToDelete" @squadDeleted="deleteThisSquad"  @cancelSquad="toggleDeletePopup"/>
@@ -16,6 +16,7 @@ import { mapState } from 'pinia';
 import { squadStore } from '../stores/squadStore';
 import DeleteSquad from './Popups/DeleteSquad.vue';
 import EditSquad from './Popups/EditSquad.vue';
+import { userStore } from '../stores/userStore';
 
 export default {
     components: {
@@ -30,6 +31,9 @@ export default {
     },
     computed: {
         ...mapState(squadStore, ['getSquads']),
+        userLogged() {
+            return userStore().user.role;
+        }
     },
     data(){
         return {
