@@ -1,5 +1,5 @@
 <template>
-  <Menu :title="'Hello Guys!'" :user="user"/>
+  <Menu :title="username" :user="user"/>
   <span class="flex text-black2 justify-center text-xl mt-10">
     Choose one of the Buttons to go to that Page!
   </span>
@@ -16,6 +16,9 @@ export default {
   computed: {
     user(){
       return userStore().user.role;
+    },
+    username(){
+      return 'Hello ' + userStore().user.fullName + '!'
     }
   },
 }
