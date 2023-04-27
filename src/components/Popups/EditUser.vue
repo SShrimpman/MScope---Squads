@@ -16,12 +16,10 @@
                                     <div class="grid gap-3">
                                         <label class="flex justify-center h-7 p-1 text-lg"> Name </label>
                                         <label class="flex justify-center h-7 p-1 text-lg"> Role </label>
-                                        <label class="flex justify-center h-7 p-1 text-lg"> Photo </label>
                                     </div>
                                     <div class="grid gap-5">
                                         <input class="h-7 p-1 border-2 border-black2 rounded-lg" type="text" v-model="userToEdit.fullName">
                                         <input class="h-7 p-1 border-2 border-black2 rounded-lg" type="text" v-model="userToEdit.role">
-                                        <input class="h-7 p-1 border-2 border-black2 rounded-lg" type="text" v-model="userToEdit.photo">
                                     </div>
                                 </div>
                                 <div class="flex justify-center items-end gap-2 mb-2">

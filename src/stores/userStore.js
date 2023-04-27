@@ -7,8 +7,8 @@ export const userStore = defineStore('userStore', {
         return {
             users: useStorage('users', [
                 // Pre-created user data
-                { id: uuidv4(), fullName: 'John Stream', role: 'TeamLeader', photo: 'a' },
-                { id: uuidv4(), fullName: 'Anthony Shrimp', role: 'Member', photo: 'o' }
+                { id: uuidv4(), fullName: 'John Stream', role: 'TeamLeader' },
+                { id: uuidv4(), fullName: 'Anthony Shrimp', role: 'Member' }
             ]),
             user: null
         }

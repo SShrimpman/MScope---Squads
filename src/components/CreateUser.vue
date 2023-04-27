@@ -12,13 +12,11 @@
                             <option> TeamLeader </option>
                             <option> Member </option>
                         </select>
-                        <label class="h-7 w-96 p-1 text-lg"> Photo </label>
-                        <input class="h-7 w-96 p-1 m-2" type="text" placeholder="myPhoto" v-model="addUser.photo">
                     </div>
                 </div>
-                <div class="flex justify-center items-end gap-2">
-                    <Button :text="'Save'" class="text-blue-600 before:bg-blue-600 after:bg-blue-600 py-0.5 px-3.5" @click="newUser"/>
-                    <Button :text="'Cancel'" class="text-red-600 before:bg-red-600 after:bg-red-600 py-0.5 px-3.5" @click="cancel"/>
+                <div class="flex justify-center items-end gap-2 mt-5">
+                    <Button :text="'Save'" class="text-blue-600 hover:text-white2 before:bg-blue-600 after:bg-blue-600 py-0.5 px-3.5" @click="newUser"/>
+                    <Button :text="'Cancel'" class="text-red-600 hover:text-white2 before:bg-red-600 after:bg-red-600 py-0.5 px-3.5" @click="cancel"/>
                 </div>
             </div>
         </div>
