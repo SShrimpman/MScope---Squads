@@ -1,5 +1,5 @@
 <template>
-    <Menu :title="'Create User'"/>
+    <Menu :title="'Create User'" :user="userLogged"/>
     <form>
         <div class="flex justify-center h-48 mt-8">
             <div class="grid grid-cols-1 p-2 w-500 bg-lightBlue rounded-lg">
@@ -8,7 +8,10 @@
                         <label class="h-7 w-96 p-1 text-lg"> Name </label>
                         <input class="h-7 w-96 p-1 m-2" type="text" placeholder="Anthony Shrimp" v-model="addUser.fullName">
                         <label class="h-7 w-96 p-1 text-lg"> Role </label>
-                        <input class="h-7 w-96 p-1 m-2" type="text" placeholder="Member" v-model="addUser.role">
+                        <select class="h-7 w-96 p-1 m-2" v-model="addUser.role">
+                            <option> TeamLeader </option>
+                            <option> Member </option>
+                        </select>
                         <label class="h-7 w-96 p-1 text-lg"> Photo </label>
                         <input class="h-7 w-96 p-1 m-2" type="text" placeholder="myPhoto" v-model="addUser.photo">
                     </div>
@@ -41,6 +44,11 @@ export default {
         return {
             addUser: new user(),
         };
+    },
+    computed: {
+        userLogged() {
+            return userStore().user.role;
+        }
     },
     methods: {
         newUser() {
