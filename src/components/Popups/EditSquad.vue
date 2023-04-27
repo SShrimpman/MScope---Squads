@@ -26,10 +26,10 @@
                                 </div>
                                 <div class="flex justify-center mt-3 items-end gap-2">
                                     <Button :text="'Save'"
-                                        class="text-blue-600 before:bg-blue-600 after:bg-blue-600 py-0.5 px-3.5"
+                                        class="text-blue-600 hover:text-white2 before:bg-blue-600 after:bg-blue-600 py-0.5 px-3.5"
                                          />
                                     <Button :text="'Cancel'"
-                                        class="text-red-600 before:bg-red-600 after:bg-red-600 py-0.5 px-3.5"
+                                        class="text-red-600 hover:text-white2 before:bg-red-600 after:bg-red-600 py-0.5 px-3.5"
                                         @click="cancel" />
                                 </div>
                             </div>
