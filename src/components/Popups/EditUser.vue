@@ -19,7 +19,10 @@
                                     </div>
                                     <div class="grid gap-5">
                                         <input class="h-7 p-1 border-2 border-black2 rounded-lg" type="text" v-model="userToEdit.fullName">
-                                        <input class="h-7 p-1 border-2 border-black2 rounded-lg" type="text" v-model="userToEdit.role">
+                                        <select class="h-7 border-2 border-black2 rounded-lg" v-model="userToEdit.role">
+                                            <option>TeamLeader</option>
+                                            <option>Member</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="flex justify-center items-end gap-2 mb-2">
@@ -52,10 +55,10 @@ export default {
         Button
     },
     methods: {
-        update(){
+        update() {
             this.$emit('userEdited', this.userToEdit)
         },
-        cancel(){
+        cancel() {
             this.$emit('cancelEditUser')
         }
     }
