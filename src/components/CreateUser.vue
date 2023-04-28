@@ -6,9 +6,10 @@
                 <div class="flex justify-center">
                     <div class="grid content-center">
                         <label class="h-7 w-96 p-1 text-lg"> Name </label>
-                        <input class="h-7 w-96 p-1 m-2" type="text" placeholder="Anthony Shrimp" v-model="addUser.fullName">
+                        <input class="h-8 w-96 p-1 m-2 border-2 border-black2 rounded-lg" type="text" placeholder="Anthony Shrimp" v-model="addUser.fullName">
                         <label class="h-7 w-96 p-1 text-lg"> Role </label>
-                        <select class="h-7 w-96 p-1 m-2" v-model="addUser.role">
+                        <select class="h-8 w-96 p-1 m-2 border-2 border-black2 rounded-lg" v-model="addUser.role">
+                            <option disabled selected hidden> Select Role </option>
                             <option> TeamLeader </option>
                             <option> Member </option>
                         </select>
@@ -42,6 +43,9 @@ export default {
         return {
             addUser: new user(),
         };
+    },
+    created() {
+        this.addUser.role = 'Select Role'
     },
     computed: {
         userLogged() {
