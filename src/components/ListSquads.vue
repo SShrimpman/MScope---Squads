@@ -23,15 +23,22 @@ import EditSquad from './Popups/EditSquad.vue';
 import { userStore } from '../stores/userStore';
 
 export default {
+    setup() {
+        const squadStoreT = squadStore()
+        return { squadStoreT }
+    },
     components: {
         Card,
         Menu,
         DeleteSquad,
         EditSquad
     },
-    setup() {
-        const squadStoreT = squadStore()
-        return { squadStoreT }
+    data(){
+        return {
+            search: '',
+            deleteSquad: false,
+            editSquad: false,
+        }
     },
     computed: {
         ...mapState(squadStore, ['getSquads']),
@@ -40,13 +47,6 @@ export default {
         },
         filteredSquads(){
             return this.getSquads.filter(squad => squad.squadName.toLowerCase().includes(this.search.toLowerCase()))
-        }
-    },
-    data(){
-        return {
-            search: '',
-            deleteSquad: false,
-            editSquad: false,
         }
     },
     methods: {

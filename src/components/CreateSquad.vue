@@ -35,14 +35,14 @@ import Menu from './Menu.vue'
 import Button from './widgets/Button.vue'
 
 export default {
-    components: {
-        Button,
-        Menu
-    },
     setup() {
         const userStoreT = userStore();
         const squadStoreT = squadStore();
         return { userStoreT, squadStoreT }
+    },
+    components: {
+        Button,
+        Menu
     },
     data() {
         return {

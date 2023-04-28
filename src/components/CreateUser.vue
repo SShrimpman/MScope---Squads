@@ -30,13 +30,13 @@ import Menu from './Menu.vue'
 import Button from './widgets/Button.vue'
 
 export default {
-    components: {
-    Button,
-    Menu
-},
     setup() {
         const userStoreT = userStore()
         return { userStoreT }
+    },
+    components: {
+        Button,
+        Menu
     },
     data() {
         return {

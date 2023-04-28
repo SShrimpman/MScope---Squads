@@ -31,12 +31,12 @@ import { mapState } from 'pinia';
 import { userStore } from '../stores/userStore'
 
 export default {
-    components: {
-        Button
-    },
     setup() {
         const userStoreT = userStore()
         return { userStoreT }
+    },
+    components: {
+        Button
     },
     data(){
         return {

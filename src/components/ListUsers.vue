@@ -46,15 +46,15 @@ import DeleteUser from './Popups/DeleteUser.vue';
 import EditUser from './Popups/EditUser.vue';
 
 export default {
+    setup() {
+        const userStoreT = userStore()
+        return { userStoreT }
+    },
     components: {
         Menu,
         Button,
         DeleteUser,
         EditUser
-    },
-    setup() {
-        const userStoreT = userStore()
-        return { userStoreT }
     },
     data() {
         return {

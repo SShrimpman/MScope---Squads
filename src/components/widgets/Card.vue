@@ -41,13 +41,13 @@ export default {
             required: true,
         }
     },
+    components: {
+        Button
+    },
     data() {
         return {
             dropdown: false
         }
-    },
-    components: {
-        Button
     },
     methods: {
         toggleDropdown() {
