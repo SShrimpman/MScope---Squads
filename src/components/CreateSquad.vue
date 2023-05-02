@@ -12,8 +12,11 @@
                         <label class="h-7 w-96 p-1 text-lg"> Members </label>
                         <!-- <input class="h-7 w-96 p-1 m-2" type="text" placeholder="Members"> -->
                         <select multiple class="block p-1 m-2 border-2 border-black2 rounded-lg" v-model="addSquad.members">
-                            <option v-for="user in getUsers" :key="user.id">{{ user.fullName }}</option>
+                            <option v-for="user in getUsers" :key="user.id" :value="{ fullName: user.fullName, role: user.role }">
+                                {{ user.fullName }}
+                            </option>
                         </select>
+                        <div v-if="error" class="flex justify-center text-red-500"> {{ errorText }} </div>
                     </div>
                 </div>
                 <div class="flex justify-center mt-3 items-end gap-2">
@@ -47,6 +50,8 @@ export default {
     data() {
         return {
             addSquad: new squad(),
+            error: false,
+            errorText : '',
         };
     },
     computed: {
@@ -57,13 +62,14 @@ export default {
     },
     methods: {
         newSquad(e) {
-            if (this.addSquad.id) {
-                this.squadStoreT.update(this.addSquad)
-                this.$router.push({ name: "ListSquads" });
-            }
-            else {
+            const hasTeamLeader = this.addSquad.members.some(member => member.role === 'TeamLeader');
+
+            if( hasTeamLeader ) {
                 this.squadStoreT.add(this.addSquad)
                 this.$router.push({ name: "ListSquads" });
+            } else {
+                this.errorText = 'It needs to have at Least one Team Leader in the Squad!'
+                this.error = !this.error
             }
         },
         cancel() {
