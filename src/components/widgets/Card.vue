@@ -11,7 +11,7 @@
                 <div class="grid content-center col-span-2">
                     <select class="h-7 w-40 border-2 border-black2 rounded-lg">
                         <option disabled selected hidden> See Members </option>
-                        <option disabled v-for="member in squad.members">{{ member }}</option>
+                        <option disabled v-for="member in squad.members">{{ member.fullName }}</option>
                     </select>
                 </div>
                 <div v-if="user != 'Member'" class="grid grid-cols-2 gap-2 m-4 mr-4">
