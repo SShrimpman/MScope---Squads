@@ -30,12 +30,12 @@
 </template>
 
 <script>
-import squad from '../models/squad'
-import { userStore } from '../stores/userStore'
-import { squadStore } from '../stores/squadStore'
+import squad from '../../models/squad'
+import { userStore } from '../../stores/userStore'
+import { squadStore } from '../../stores/squadStore'
 import { mapState } from 'pinia';
-import Menu from './Menu.vue'
-import Button from './widgets/Button.vue'
+import Menu from '../public/Menu.vue'
+import Button from '../widgets/Button.vue'
 
 export default {
     setup() {

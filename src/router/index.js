@@ -1,9 +1,9 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Dashboard from "../components/Dashboard.vue"
-import ListUsers from "../components/ListUsers.vue"
-import ListSquads from "../components/ListSquads.vue"
-import CreateSquad from "../components/CreateSquad.vue"
-import CreateUser from "../components/CreateUser.vue"
+import ListUsers from "../components/users/ListUsers.vue"
+import ListSquads from "../components/squads/ListSquads.vue"
+import CreateSquad from "../components/squads/CreateSquad.vue"
+import CreateUser from "../components/users/CreateUser.vue"
 import Login from "../components/Login.vue"
 
 const routes = [

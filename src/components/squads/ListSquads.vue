@@ -14,13 +14,13 @@
 </template>
 
 <script>
-import Menu from './Menu.vue';
-import Card from './widgets/Card.vue';
+import Menu from '../public/Menu.vue';
+import Card from '../widgets/Card.vue';
 import { mapState } from 'pinia';
-import { squadStore } from '../stores/squadStore';
-import DeleteSquad from './Popups/DeleteSquad.vue';
-import EditSquad from './Popups/EditSquad.vue';
-import { userStore } from '../stores/userStore';
+import { squadStore } from '../../stores/squadStore';
+import DeleteSquad from '../Popups/DeleteSquad.vue';
+import EditSquad from '../Popups/EditSquad.vue';
+import { userStore } from '../../stores/userStore';
 
 export default {
     setup() {

@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import Button from './widgets/Button.vue';
+import Button from '../widgets/Button.vue';
 
 export default {
     props: {

@@ -38,12 +38,12 @@
 </template>
 
 <script>
-import Button from './widgets/Button.vue';
-import Menu from './Menu.vue';
+import Button from '../widgets/Button.vue';
+import Menu from '../public/Menu.vue';
 import { mapState } from 'pinia';
-import { userStore } from '../stores/userStore';
-import DeleteUser from './Popups/DeleteUser.vue';
-import EditUser from './Popups/EditUser.vue';
+import { userStore } from '../../stores/userStore';
+import DeleteUser from '../Popups/DeleteUser.vue';
+import EditUser from '../Popups/EditUser.vue';
 
 export default {
     setup() {

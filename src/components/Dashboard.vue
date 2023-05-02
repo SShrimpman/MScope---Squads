@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import Menu from './Menu.vue';
+import Menu from './public/Menu.vue';
 import { userStore } from '../stores/userStore';
 
 export default {

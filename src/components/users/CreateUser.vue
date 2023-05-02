@@ -25,10 +25,10 @@
 </template>
 
 <script>
-import user from '../models/user'
-import { userStore } from '../stores/userStore'
-import Menu from './Menu.vue'
-import Button from './widgets/Button.vue'
+import user from '../../models/user'
+import { userStore } from '../../stores/userStore'
+import Menu from '../public/Menu.vue'
+import Button from '../widgets/Button.vue'
 
 export default {
     setup() {
