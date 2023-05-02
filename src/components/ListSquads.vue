@@ -46,7 +46,7 @@ export default {
             return userStore().user.role;
         },
         filteredSquads(){
-            return this.getSquads.filter(squad => squad.squadName.toLowerCase().includes(this.search.toLowerCase()))
+            return this.getSquads.filter(squad => squad.id.toLowerCase().includes(this.search.toLowerCase()))
         }
     },
     methods: {
