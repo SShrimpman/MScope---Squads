@@ -1,6 +1,6 @@
 <template>
     <Menu :title="'Create User'" :user="userLogged"/>
-    <form>
+    <form @submit.prevent="newUser">
         <div class="flex justify-center h-48 mt-8">
             <div class="grid grid-cols-1 p-2 w-500 bg-lightBlue rounded-lg">
                 <div class="flex justify-center">
@@ -16,7 +16,7 @@
                     </div>
                 </div>
                 <div class="flex justify-center items-end gap-2 mt-5">
-                    <Button :text="'Save'" class="text-blue-600 hover:text-white2 before:bg-blue-600 after:bg-blue-600 py-0.5 px-3.5" @click="newUser"/>
+                    <Button :text="'Save'" class="text-blue-600 hover:text-white2 before:bg-blue-600 after:bg-blue-600 py-0.5 px-3.5"/>
                     <Button :text="'Cancel'" class="text-red-600 hover:text-white2 before:bg-red-600 after:bg-red-600 py-0.5 px-3.5" @click="cancel"/>
                 </div>
             </div>
@@ -54,14 +54,8 @@ export default {
     },
     methods: {
         newUser() {
-            if (this.addUser.id) {
-                this.userStoreT.update(this.addUser)
-                this.$router.push({ name: "ListUsers" });
-            }
-            else {
-                this.userStoreT.add(this.addUser)
-                this.$router.push({ name: "ListUsers" });
-            }
+            this.userStoreT.add(this.addUser)
+            this.$router.push({ name: "ListUsers" });
         },
         cancel() {
             this.$router.push({ name: "ListUsers" });
