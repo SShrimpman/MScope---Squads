@@ -69,13 +69,14 @@ export default {
             }
         },
         newSquad(e) {
+            const hasAdmin = this.addSquad.members.some(member => member.role === 'Admin');
             const hasTeamLeader = this.addSquad.members.some(member => member.role === 'TeamLeader');
 
-            if( hasTeamLeader ) {
+            if( hasAdmin || hasTeamLeader ) {
                 this.squadStoreT.add(this.addSquad)
                 this.$router.push({ name: "ListSquadsAdmin" });
             } else {
-                this.errorText = 'It needs to have at Least one Team Leader in the Squad!'
+                this.errorText = 'It needs to have at Least one Admin or Team Leader in the Squad!'
                 this.error = !this.error
             }
         },
