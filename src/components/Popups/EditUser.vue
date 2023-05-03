@@ -20,6 +20,7 @@
                                     <div class="grid gap-5">
                                         <input class="h-7 p-1 border-2 border-black2 rounded-lg" type="text" v-model="userToEdit.fullName">
                                         <select class="h-7 border-2 border-black2 rounded-lg" v-model="userToEdit.role">
+                                            <option v-if="userLogged == 'Admin'" > Admin </option>
                                             <option>TeamLeader</option>
                                             <option>Member</option>
                                         </select>
@@ -43,6 +44,7 @@
 
 <script>
 import Button from '../widgets/Button.vue';
+import { userStore } from '../../stores/userStore';
 
 export default {
     props: {
@@ -53,6 +55,11 @@ export default {
     },
     components: {
         Button
+    },
+    computed: {
+        userLogged() {
+            return userStore().user.role;
+        }
     },
     methods: {
         update() {
