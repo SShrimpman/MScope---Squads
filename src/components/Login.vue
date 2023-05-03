@@ -12,7 +12,7 @@
                             <input class="h-7 w-96 p-1 m-2" type="text" placeholder="Anthony Shrimp" v-model="name">
                             <label class="h-7 w-96 p-1 text-lg text-white2"> Password </label>
                             <input class="h-7 w-96 p-1 m-2" type="text" placeholder="******">
-                            <div v-if="loginError" class="flex justify-center text-red-500"> Login Error </div>
+                            <div v-if="loginError" class="flex justify-center text-red-500"> {{ errorMessage }} </div>
                         </div>
                     </div>
                     <div class="flex justify-center mt-4">
@@ -38,10 +38,11 @@ export default {
     components: {
         Button
     },
-    data(){
+    data() {
         return {
-            name : null,
-            loginError: false
+            name: null,
+            loginError: false,
+            errorMessage: ''
         }
     },
     computed: {
@@ -50,13 +51,18 @@ export default {
     methods: {
         login() {
             const userLogin = this.getUsers[this.getUsers.findIndex(userFind => userFind.fullName == this.name)]
+            userStore().login(userLogin)
 
             if (userLogin) {
-                userStore().login(userLogin)
-                this.$router.push({ name: "Dashboard" });
+                if (userStore().login(userLogin) == true) {
+                    this.$router.push({ name: "Dashboard" })
+                } else {
+                    this.errorMessage = 'Login Error, try again later'
+                    this.loginError = true
+                }
             } else {
-                console.log( 'Login Error' )
-                this.loginError = !this.loginError
+                this.errorMessage = 'User not found'
+                this.loginError = true
             }
         },
     }
