@@ -1,5 +1,5 @@
 <template>
-    <Menu :title="'Create User'" :user="userLogged"/>
+    <Menu :title="'Create User'"/>
     <form @submit.prevent="newUser">
         <div class="flex justify-center h-48 mt-8">
             <div class="grid grid-cols-1 p-2 w-500 bg-lightBlue rounded-lg">
@@ -10,6 +10,7 @@
                         <label class="h-7 w-96 p-1 text-lg"> Role </label>
                         <select class="h-8 w-96 p-1 m-2 border-2 border-black2 rounded-lg" v-model="addUser.role">
                             <option disabled selected hidden> Select Role </option>
+                            <option v-if="userLogged == 'Admin'" > Admin </option>
                             <option> TeamLeader </option>
                             <option> Member </option>
                         </select>
@@ -27,7 +28,7 @@
 <script>
 import user from '../../models/user'
 import { userStore } from '../../stores/userStore'
-import Menu from '../public/Menu.vue'
+import Menu from '../public/MenuAdmin.vue'
 import Button from '../widgets/Button.vue'
 
 export default {
@@ -55,10 +56,10 @@ export default {
     methods: {
         newUser() {
             this.userStoreT.add(this.addUser)
-            this.$router.push({ name: "ListUsers" });
+            this.$router.push({ name: "ListUsersAdmin" });
         },
         cancel() {
-            this.$router.push({ name: "ListUsers" });
+            this.$router.push({ name: "ListUsersAdmin" });
         }
     },
 }
