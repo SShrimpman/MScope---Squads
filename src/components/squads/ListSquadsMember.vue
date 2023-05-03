@@ -6,7 +6,7 @@
     </div>
     <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 2xl:grid-cols-3 text-white2 mt-8 mb-8 sm:gap-10">
         <div v-for="squad in filteredSquads" :key="squad.id" class="flex justify-center">
-            <Card :squad="squad"/>
+            <Card :squad="squad" :user="userLogged"/>
         </div>
     </div>
 </template>
