@@ -20,7 +20,10 @@
                                         <input class="h-7 w-96 p-1 m-2 border-2 border-black2 rounded-lg" type="text" v-model="squadToEdit.reference">
                                         <label class="h-7 w-96 p-1 text-lg"> Members </label>
                                         <select multiple class="block p-1 m-2 border-2 border-black2 rounded-lg" v-model="squadToEdit.members">
-                                            <option v-for="user in getUsers" :key="user.id">{{ user.fullName }}</option>
+                                            <option v-for="user in getUsers" :key="user.id" :class="{'hidden disabled': hideAdmin(user.role)}"
+                                             :value="{ fullName: user.fullName, role: user.role }">
+                                                {{ user.fullName }}
+                                            </option>
                                         </select>
                                     </div>
                                 </div>
@@ -62,8 +65,18 @@ export default {
     },
     computed: {
         ...mapState(userStore, ['getUsers']),
+        userLogged() {
+            return userStore().user.role;
+        },
     },
     methods: {
+        hideAdmin(userRole){
+            if (userRole === 'Admin' && this.userLogged === 'TeamLeader'){
+                return true
+            } else {
+                return false
+            }
+        },
         update() {
             this.$emit('squadEdited', this.squadToEdit)
         },
