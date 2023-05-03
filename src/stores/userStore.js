@@ -7,10 +7,12 @@ export const userStore = defineStore('userStore', {
         return {
             users: useStorage('users', [
                 // Pre-created user data
+                { id: uuidv4(), fullName: 'Francis Kings', role: 'Admin' },
                 { id: uuidv4(), fullName: 'John Stream', role: 'TeamLeader' },
                 { id: uuidv4(), fullName: 'Anthony Shrimp', role: 'Member' }
             ]),
-            user: null
+            user: null,
+            isUserLoggedIn : null
         }
     },
     getters: {
@@ -18,7 +20,11 @@ export const userStore = defineStore('userStore', {
     },
     actions: {
         login(user){
-            this.user = user
+            if (this.user = user) {
+                return this.isUserLoggedIn = true
+            } else {
+                return this.isUserLoggedIn = false
+            }
         },
         add(user) {
             try {
@@ -38,7 +44,9 @@ export const userStore = defineStore('userStore', {
         delete(user) {
             try {
                 const userToDelete = this.users.map(user => user.id).indexOf(user)
-                this.users.splice( userToDelete, 1 )
+                const admins = this.users.filter(user => user.role === 'Admin')
+                const adminCount = admins.lenght
+                adminCount > 0 ? this.users.splice( userToDelete, 1 ) : window.alert('Need to have at least one admin in the App!')
             } catch (error) {
                 throw error
             }
