@@ -62,9 +62,9 @@ export default {
             this.editSquad = !this.editSquad;
             this.squadStoreT.update(squadToEdit)
         },
-        deleteThisSquad(squadToDelete){
+        deleteThisSquad(squadToDelete , loggedUser){
             this.deleteSquad = !this.deleteSquad;
-            this.squadStoreT.delete(squadToDelete.id)
+            this.squadStoreT.delete(squadToDelete, loggedUser)
         }
     }
 }

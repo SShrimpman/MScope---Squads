@@ -24,6 +24,7 @@
 
 <script>
 import Button from '../widgets/Button.vue';
+import { userStore } from '../../stores/userStore';
 
 export default {
     props: {
@@ -35,9 +36,20 @@ export default {
     components: {
         Button
     },
+    data(){
+        return {
+            loggedUser : null
+        }
+    },
+    computed: {
+        userLogged() {
+            return userStore().user.role;
+        },
+    },
     methods: {
         deleteSquad(squadToDelete){
-            this.$emit('squadDeleted', squadToDelete)
+            this.loggedUser = this.userLogged
+            this.$emit('squadDeleted', squadToDelete, this.loggedUser)
         },
         cancel(){
             this.$emit('cancelSquad')
