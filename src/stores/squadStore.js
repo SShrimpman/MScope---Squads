@@ -27,10 +27,23 @@ export const squadStore = defineStore('squadStore', {
                 throw error
             }
         },
-        delete(squad) {
+        delete(squad, loggedUser) {
             try {
-                const squadToDelete = this.squads.map(squad => squad.id).indexOf(squad)
-                this.squads.splice( squadToDelete, 1 )
+                const squadToDeleteIndex = this.squads.map( squad => squad.id ).indexOf( squad.id )
+                const squadToDelete = this.squads[ squadToDeleteIndex ]
+
+                const admins = squadToDelete.members.filter( member => member.role === 'Admin' )
+                const adminCount = admins.length
+
+                if ( loggedUser == 'TeamLeader' ) {
+                    if ( adminCount > 0 ) {
+                        window.alert( 'Delete Error : Cant Delete Squad with a Admin in it!' )
+                    } else {
+                        this.squads.splice( squadToDeleteIndex, 1 )
+                    }
+                } else if( loggedUser == 'Admin' ){
+                    this.squads.splice( squadToDeleteIndex, 1 )
+                }
             } catch (error) {
                 throw error
             }
