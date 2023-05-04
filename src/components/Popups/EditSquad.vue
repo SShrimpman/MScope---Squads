@@ -15,11 +15,11 @@
                                 <div class="flex justify-center">
                                     <div class="grid content-center">
                                         <label class="h-7 w-96 p-1 text-lg"> Squad Name </label>
-                                        <input class="h-7 w-96 p-1 m-2 border-2 border-black2 rounded-lg" type="text" v-model="squadToEdit.squadName">
+                                        <input class="h-7 w-96 p-1 m-2 border-2 border-black2 rounded-lg" type="text" v-model="form.squadName">
                                         <label class="h-7 w-96 p-1 text-lg"> Reference </label>
-                                        <input class="h-7 w-96 p-1 m-2 border-2 border-black2 rounded-lg" type="text" v-model="squadToEdit.reference">
+                                        <input class="h-7 w-96 p-1 m-2 border-2 border-black2 rounded-lg" type="text" v-model="form.reference">
                                         <label class="h-7 w-96 p-1 text-lg"> Members </label>
-                                        <select multiple class="block p-1 m-2 border-2 border-black2 rounded-lg" v-model="squadToEdit.members">
+                                        <select multiple class="block p-1 m-2 border-2 border-black2 rounded-lg" v-model="form.members">
                                             <option v-for="user in getUsers" :key="user.id" :class="{'hidden disabled': hideAdmin(user.role)}"
                                              :value="{ fullName: user.fullName, role: user.role }">
                                                 {{ user.fullName }}
@@ -63,6 +63,22 @@ export default {
     components: {
         Button
     },
+    data(){
+        return {
+            form : {
+                id : null,
+                squadName : '',
+                reference : '',
+                members : []
+            }
+        }
+    },
+    mounted(){
+        this.form.id = this.squadToEdit.id;
+        this.form.squadName = this.squadToEdit.squadName;
+        this.form.reference = this.squadToEdit.reference;
+        this.form.members = this.squadToEdit.members;
+    },
     computed: {
         ...mapState(userStore, ['getUsers']),
         userLogged() {
@@ -78,7 +94,7 @@ export default {
             }
         },
         update() {
-            this.$emit('squadEdited', this.squadToEdit)
+            this.$emit('squadEdited', this.form)
         },
         cancel() {
             this.$emit('cancelEditSquad')
