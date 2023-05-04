@@ -33,11 +33,10 @@ export const squadStore = defineStore('squadStore', {
                 const squadToDelete = this.squads[ squadToDeleteIndex ]
 
                 const admins = squadToDelete.members.filter( member => member.role === 'Admin' )
-                const adminCount = admins.length
 
                 if ( loggedUser == 'TeamLeader' ) {
-                    if ( adminCount > 0 ) {
-                        window.alert( 'Delete Error : Cant Delete Squad with a Admin in it!' )
+                    if ( admins.length > 0 ) {
+                        console.log( 'Delete Error : Cant Delete a Squad with a Admin in it!' )
                     } else {
                         this.squads.splice( squadToDeleteIndex, 1 )
                     }
