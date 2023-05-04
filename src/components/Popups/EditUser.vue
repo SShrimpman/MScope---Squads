@@ -18,8 +18,8 @@
                                         <label class="flex justify-center h-7 p-1 text-lg"> Role </label>
                                     </div>
                                     <div class="grid gap-5">
-                                        <input class="h-7 p-1 border-2 border-black2 rounded-lg" type="text" v-model="userToEdit.fullName">
-                                        <select class="h-7 border-2 border-black2 rounded-lg" v-model="userToEdit.role">
+                                        <input class="h-7 p-1 border-2 border-black2 rounded-lg" type="text" v-model="form.fullName">
+                                        <select class="h-7 border-2 border-black2 rounded-lg" v-model="form.role">
                                             <option v-if="userLogged == 'Admin'" > Admin </option>
                                             <option>TeamLeader</option>
                                             <option>Member</option>
@@ -56,6 +56,20 @@ export default {
     components: {
         Button
     },
+    data(){
+        return {
+            form : {
+                id : null,
+                fullName : '',
+                role : ''
+            }
+        }
+    },
+    mounted(){
+        this.form.id = this.userToEdit.id;
+        this.form.fullName = this.userToEdit.fullName;
+        this.form.role = this.userToEdit.role;
+    },
     computed: {
         userLogged() {
             return userStore().user.role;
@@ -63,7 +77,7 @@ export default {
     },
     methods: {
         update() {
-            this.$emit('userEdited', this.userToEdit)
+            this.$emit('userEdited', this.form)
         },
         cancel() {
             this.$emit('cancelEditUser')
