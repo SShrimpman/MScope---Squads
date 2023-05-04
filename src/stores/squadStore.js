@@ -33,7 +33,6 @@ export const squadStore = defineStore('squadStore', {
             try {
                 squad.id = uuidv4();
                 this.squads.push(squad);
-                toast.success('Squad Created Successfully!', toastCSS);
             } catch (error) {
                 throw error
             }
