@@ -12,7 +12,6 @@
                             <input class="h-7 w-96 p-1 m-2" type="text" placeholder="Anthony Shrimp" v-model="name">
                             <label class="h-7 w-96 p-1 text-lg text-white2"> Password </label>
                             <input class="h-7 w-96 p-1 m-2" type="text" placeholder="******">
-                            <div v-if="loginError" class="flex justify-center text-red-500"> {{ errorMessage }} </div>
                         </div>
                     </div>
                     <div class="flex justify-center mt-4">
@@ -29,20 +28,30 @@
 import Button from './widgets/Button.vue';
 import { mapState } from 'pinia';
 import { userStore } from '../stores/userStore'
+import { useToast } from "vue-toastification";
 
 export default {
-    setup() {
-        const userStoreT = userStore()
-        return { userStoreT }
-    },
     components: {
         Button
     },
     data() {
         return {
             name: null,
-            loginError: false,
-            errorMessage: ''
+            toast : useToast(),
+            toastCSS : {
+                position: "top-right",
+                timeout: 2500,
+                closeOnClick: true,
+                pauseOnFocusLoss: true,
+                pauseOnHover: false,
+                draggable: true,
+                draggablePercent: 0.6,
+                showCloseButtonOnHover: false,
+                hideProgressBar: true,
+                closeButton: "button",
+                icon: true,
+                rtl: false
+            }
         }
     },
     computed: {
@@ -57,12 +66,10 @@ export default {
                 if (userStore().login(userLogin) == true) {
                     this.$router.push({ name: "Dashboard" })
                 } else {
-                    this.errorMessage = 'Login Error, try again later'
-                    this.loginError = true
+                    this.toast.error("Login Error, try again later", this.toastCSS)
                 }
             } else {
-                this.errorMessage = 'User not found'
-                this.loginError = true
+                this.toast.error("User not found", this.toastCSS)
             }
         },
     }
