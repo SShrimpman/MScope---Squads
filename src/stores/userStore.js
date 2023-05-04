@@ -36,7 +36,22 @@ export const userStore = defineStore('userStore', {
         },
         update(user) {
             try {
-                this.users[this.users.findIndex(userFind => userFind.id == user.id)] = user
+                const userToUpdate = this.users[this.users.findIndex(userFind => userFind.id == user.id)]
+                const admins = this.users.filter(user => user.role === 'Admin')
+
+                if (userToUpdate.role != user.role) {
+                    if ( userToUpdate.role === 'Admin' ) {
+                        if (admins.length > 1) {
+                            this.users[this.users.findIndex(userFind => userFind.id == user.id)] = user
+                        } else {
+                            console.log('Need to have at least one admin in the App!')
+                        }
+                    } else {
+                        this.users[this.users.findIndex(userFind => userFind.id == user.id)] = user
+                    }
+                } else {
+                    this.users[this.users.findIndex(userFind => userFind.id == user.id)] = user
+                }
             } catch (error) {
                 throw error
             }
@@ -45,8 +60,8 @@ export const userStore = defineStore('userStore', {
             try {
                 const userToDelete = this.users.map(user => user.id).indexOf(user)
                 const admins = this.users.filter(user => user.role === 'Admin')
-                const adminCount = admins.lenght
-                adminCount > 0 ? this.users.splice( userToDelete, 1 ) : window.alert('Need to have at least one admin in the App!')
+
+                admins.length > 0 ? this.users.splice( userToDelete, 1 ) : console.log('Need to have at least one admin in the App!')
             } catch (error) {
                 throw error
             }
