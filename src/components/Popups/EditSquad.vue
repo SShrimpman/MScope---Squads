@@ -15,9 +15,9 @@
                                 <div class="flex justify-center">
                                     <div class="grid content-center">
                                         <label class="h-7 w-96 p-1 text-lg"> Squad Name </label>
-                                        <input class="h-7 w-96 p-1 m-2 border-2 border-black2 rounded-lg" type="text" v-model="form.squadName">
+                                        <input class="h-7 w-96 p-1 m-2 border-2 border-black2 rounded-lg" v-bind:disabled="userLogged === 'TeamLeader'" type="text" v-model="form.squadName">
                                         <label class="h-7 w-96 p-1 text-lg"> Reference </label>
-                                        <input class="h-7 w-96 p-1 m-2 border-2 border-black2 rounded-lg" type="text" v-model="form.reference">
+                                        <input class="h-7 w-96 p-1 m-2 border-2 border-black2 rounded-lg" v-bind:disabled="userLogged === 'TeamLeader'" type="text" v-model="form.reference">
                                         <label class="h-7 w-96 p-1 text-lg"> Members </label>
                                         <select multiple class="block p-1 m-2 border-2 border-black2 rounded-lg" v-model="form.members">
                                             <option v-for="user in getUsers" :key="user.id" :class="{'hidden disabled': hideAdmin(user.role)}"
