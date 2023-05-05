@@ -10,9 +10,6 @@ import Login from "../components/Login.vue"
 import Unauthorized from "../components/Unauthorized.vue"
 import { userStore } from "../stores/userStore";
 
-// const isUserLoggedIn = true
-// const isUserLoggedIn = userStore().login(user)
-
 const routes = [
     { path: '/', name: 'Login', component: Login },
     { path: '/unauthorized', name: 'Unauthorized', component: Unauthorized },
