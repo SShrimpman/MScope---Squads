@@ -99,7 +99,8 @@ export default {
         update() {
             this.$emit('squadEdited', this.form)
         },
-        cancel() {
+        cancel(event) {
+            event.preventDefault();
             this.$emit('cancelEditSquad')
         }
     }

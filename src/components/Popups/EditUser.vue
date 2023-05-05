@@ -79,7 +79,8 @@ export default {
         update() {
             this.$emit('userEdited', this.form)
         },
-        cancel() {
+        cancel(event) {
+            event.preventDefault();
             this.$emit('cancelEditUser')
         }
     }

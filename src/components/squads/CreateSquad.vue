@@ -96,7 +96,8 @@ export default {
                 this.toast.error( "Squad needs one Admin or TeamLeader!", this.toastCSS )
             }
         },
-        cancel() {
+        cancel(event) {
+            event.preventDefault();
             this.$router.push({ name: "ListSquadsAdmin" });
         }
     },

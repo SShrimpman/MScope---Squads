@@ -58,7 +58,8 @@ export default {
             this.userStoreT.add(this.addUser)
             this.$router.push({ name: "ListUsersAdmin" });
         },
-        cancel() {
+        cancel(event) {
+            event.preventDefault();
             this.$router.push({ name: "ListUsersAdmin" });
         }
     },
