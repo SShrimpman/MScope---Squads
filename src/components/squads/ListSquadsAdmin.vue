@@ -21,6 +21,7 @@ import { squadStore } from '../../stores/squadStore';
 import DeleteSquad from '../Popups/DeleteSquad.vue';
 import EditSquad from '../Popups/EditSquad.vue';
 import { userStore } from '../../stores/userStore';
+import { useToast } from "vue-toastification";
 
 export default {
     setup() {
@@ -38,6 +39,21 @@ export default {
             search: '',
             deleteSquad: false,
             editSquad: false,
+            toast : useToast(),
+            toastCSS : {
+                position: "top-right",
+                timeout: 2500,
+                closeOnClick: true,
+                pauseOnFocusLoss: true,
+                pauseOnHover: false,
+                draggable: true,
+                draggablePercent: 0.6,
+                showCloseButtonOnHover: false,
+                hideProgressBar: true,
+                closeButton: "button",
+                icon: true,
+                rtl: false
+            }
         }
     },
     computed: {
@@ -59,8 +75,16 @@ export default {
             this.squadToDelete = squad;
         },
         editThisSquad(squadToEdit){
-            this.editSquad = !this.editSquad;
-            this.squadStoreT.update(squadToEdit)
+            const hasAdmin = squadToEdit.members.some(member => member.role === 'Admin');
+            const hasTeamLeader = squadToEdit.members.some(member => member.role === 'TeamLeader');
+            
+            if( hasAdmin || hasTeamLeader ) {
+                this.editSquad = !this.editSquad;
+                this.squadStoreT.update(squadToEdit)
+                this.toast.success('Squad Updated Successfully!', this.toastCSS);
+            } else {
+                this.toast.error( "Squad needs at least one Admin or TeamLeader!", this.toastCSS )
+            }
         },
         deleteThisSquad(squadToDelete , loggedUser){
             this.deleteSquad = !this.deleteSquad;

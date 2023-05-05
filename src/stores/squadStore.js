@@ -39,15 +39,7 @@ export const squadStore = defineStore('squadStore', {
         },
         update(squad) {
             try {
-                const admins = squad.members.filter( member => member.role === 'Admin' )
-                const teamLeaders = squad.members.filter( member => member.role === 'TeamLeader' )
-
-                if ( admins.length > 0 || teamLeaders.length > 0 ) {
-                    this.squads[this.squads.findIndex(squadFind => squadFind.id == squad.id)] = squad
-                    toast.success('Squad Updated Successfully!', toastCSS);
-                } else {
-                    toast.error('Squad needs at least one Admin or TeamLeader!', toastCSS);
-                }
+                this.squads[this.squads.findIndex(squadFind => squadFind.id == squad.id)] = squad
             } catch (error) {
                 throw error
             }
