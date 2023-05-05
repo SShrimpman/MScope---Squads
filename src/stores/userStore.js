@@ -54,25 +54,7 @@ export const userStore = defineStore('userStore', {
         },
         update(user) {
             try {
-                const userToUpdate = this.users[this.users.findIndex(userFind => userFind.id == user.id)]
-                const admins = this.users.filter(user => user.role === 'Admin')
-
-                if (userToUpdate.role != user.role) {
-                    if (userToUpdate.role === 'Admin') {
-                        if (admins.length > 1) {
-                            this.users[this.users.findIndex(userFind => userFind.id == user.id)] = user
-                            toast.success('User Updated Successfully!', toastCSS);
-                        } else {
-                            toast.error('Need to have at least one admin in the App!', toastCSS);
-                        }
-                    } else {
-                        this.users[this.users.findIndex(userFind => userFind.id == user.id)] = user
-                        toast.success('User Updated Successfully!', toastCSS);
-                    }
-                } else {
-                    this.users[this.users.findIndex(userFind => userFind.id == user.id)] = user
-                    toast.success('User Updated Successfully!', toastCSS);
-                }
+                this.users[this.users.findIndex(userFind => userFind.id == user.id)] = user
             } catch (error) {
                 throw error
             }
