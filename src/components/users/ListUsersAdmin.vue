@@ -1,4 +1,5 @@
 <template>
+    <Header :username="userHeader"/>
     <Menu :title="'List Users'" />
     <div class="flex justify-center mt-8">
         <div class="border-4 border-black2 rounded-xl w-900">
@@ -36,6 +37,7 @@ import { userStore } from '../../stores/userStore';
 import DeleteUser from '../Popups/DeleteUser.vue';
 import EditUser from '../Popups/EditUser.vue';
 import { useToast } from "vue-toastification";
+import Header from '../public/Header.vue';
 
 export default {
     setup() {
@@ -43,6 +45,7 @@ export default {
         return { userStoreT }
     },
     components: {
+        Header,
         Menu,
         Button,
         DeleteUser,
@@ -78,7 +81,10 @@ export default {
         ...mapState(userStore, ['getUsers']),
         userLogged() {
             return userStore().user.role;
-        }
+        },
+        userHeader(){
+            return userStore().user.fullName
+        },
     },
     methods: {
         toggleEditPopup(user) {

@@ -1,4 +1,5 @@
 <template>
+    <Header :username="userHeader"/>
     <Menu :title="'Create User'"/>
     <form @submit.prevent="newUser">
         <div class="flex justify-center h-48 mt-8">
@@ -30,6 +31,7 @@ import user from '../../models/user'
 import { userStore } from '../../stores/userStore'
 import Menu from '../public/MenuAdmin.vue'
 import Button from '../widgets/Button.vue'
+import Header from '../public/Header.vue'
 
 export default {
     setup() {
@@ -37,6 +39,7 @@ export default {
         return { userStoreT }
     },
     components: {
+        Header,
         Button,
         Menu
     },
@@ -51,7 +54,10 @@ export default {
     computed: {
         userLogged() {
             return userStore().user.role;
-        }
+        },
+        userHeader(){
+            return userStore().user.fullName
+        },
     },
     methods: {
         newUser() {

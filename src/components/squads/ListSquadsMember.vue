@@ -1,4 +1,5 @@
 <template>
+    <Header :username="userHeader"/>
     <Menu :title="'List Squads'"/>
     <div class="flex justify-center mt-8">
         <input type="text" class="bg-white2 text-lg border-2 border-black2 h-12 w-900 pl-2 rounded-lg"
@@ -17,6 +18,7 @@ import Card from '../widgets/CardMember.vue';
 import { mapState } from 'pinia';
 import { squadStore } from '../../stores/squadStore';
 import { userStore } from '../../stores/userStore';
+import Header from '../public/Header.vue';
 
 export default {
     setup() {
@@ -24,6 +26,7 @@ export default {
         return { squadStoreT }
     },
     components: {
+        Header,
         Card,
         Menu,
     },
@@ -38,6 +41,9 @@ export default {
         ...mapState(squadStore, ['getSquads']),
         userLogged() {
             return userStore().user.role;
+        },
+        userHeader(){
+            return userStore().user.fullName
         },
         filteredSquads(){
             return this.getSquads.filter(squad => squad.id.toLowerCase().includes(this.search.toLowerCase()))

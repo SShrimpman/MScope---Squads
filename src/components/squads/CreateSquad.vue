@@ -1,4 +1,5 @@
 <template>
+    <Header :username="userHeader"/>
     <Menu :title="'Create Squad'"/>
     <form @submit.prevent="newSquad($event)">
         <div class="flex justify-center h-48 mt-8">
@@ -39,6 +40,7 @@ import { mapState } from 'pinia';
 import Menu from '../public/MenuAdmin.vue'
 import Button from '../widgets/Button.vue'
 import { useToast } from "vue-toastification";
+import Header from '../public/Header.vue';
 
 export default {
     setup() {
@@ -47,6 +49,7 @@ export default {
         return { userStoreT, squadStoreT }
     },
     components: {
+        Header,
         Button,
         Menu
     },
@@ -75,6 +78,9 @@ export default {
         userLogged() {
             return userStore().user.role;
         },
+        userHeader(){
+            return userStore().user.fullName
+        }
     },
     methods: {
         hideAdmin(userRole){

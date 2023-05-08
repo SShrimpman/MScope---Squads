@@ -1,4 +1,5 @@
 <template>
+    <Header :username="userHeader"/>
     <Menu :title="'List Users'"/>
     <div class="flex justify-center mt-8">
         <div class="border-4 border-black2 rounded-xl w-900">
@@ -21,6 +22,7 @@ import Button from '../widgets/Button.vue';
 import Menu from '../public/MenuMember.vue';
 import { mapState } from 'pinia';
 import { userStore } from '../../stores/userStore';
+import Header from '../public/Header.vue';
 
 export default {
     setup() {
@@ -28,6 +30,7 @@ export default {
         return { userStoreT }
     },
     components: {
+        Header,
         Menu,
         Button,
     },
@@ -43,7 +46,10 @@ export default {
         ...mapState(userStore, ['getUsers']),
         userLogged() {
             return userStore().user.role;
-        }
+        },
+        userHeader(){
+            return userStore().user.fullName
+        },
     },
 }
 </script>
