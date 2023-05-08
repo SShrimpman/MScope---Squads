@@ -6,7 +6,12 @@ export default {
   ],
   theme: {
     extend: {
+      fontSize: {
+        'tiny': '1px',
+      },
       colors: {
+        'backgroundHeader': '#152243',
+        'highlight': '#086ff4',
         'transparentBg': 'rgba(0,0,0,.4)',
         'darkBlue': '#152243',
         'white2': '#FCFCFD',
@@ -18,9 +23,13 @@ export default {
         '100': '100%'
       },
       width: {
+        'header': '72px',
         '500': '500px',
         '900': '900px',
         '100': '100%'
+      },
+      borderWidth: {
+        '1': '1px',
       },
       borderRadius: {
         'outside': '20px',
