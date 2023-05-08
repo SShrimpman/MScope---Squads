@@ -2,6 +2,7 @@ import { v4 as uuidv4 } from 'uuid'
 import { defineStore } from 'pinia'
 import { useStorage } from '@vueuse/core'
 import { useToast } from 'vue-toastification'
+import { userStore } from './userStore'
 
 const toast = useToast()
 const toastCSS = {
@@ -22,7 +23,12 @@ const toastCSS = {
 export const squadStore = defineStore('squadStore', {
     state: () => {
         return {
-            squads: useStorage('squads', []),
+            squads: useStorage('squads', [
+                { id: uuidv4(), squadName: 'MS', reference: '777777', members: [] },
+                { id: uuidv4(), squadName: 'IT', reference: '777999', members: [] },
+                { id: uuidv4(), squadName: 'RH', reference: '121212', members: [] },
+                { id: uuidv4(), squadName: 'BS', reference: '333333', members: [] },
+            ]),
         }
     },
     getters: {
