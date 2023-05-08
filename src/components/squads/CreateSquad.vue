@@ -15,7 +15,7 @@
                         </label>
                         <select multiple class="block p-1 m-2 border-2 border-black2 rounded-lg" v-model="addSquad.members">
                             <option v-for="user in getUsers" :key="user.id" :class="{'hidden disabled': hideAdmin(user.role)}"
-                             :value="{ fullName: user.fullName, role: user.role }">
+                             :value="{ id: user.id, fullName: user.fullName, role: user.role }">
                                 {{ user.fullName }}
                             </option>
                         </select>

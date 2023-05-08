@@ -125,7 +125,7 @@ export default {
         },
         deleteThisUser(userToDelete) {
             this.deleteUser = !this.deleteUser;
-            this.userStoreT.delete(userToDelete.id)
+            this.userStoreT.delete(userToDelete)
         }
     }
 }
