@@ -1,7 +1,7 @@
 <template>
     <div class="grid grid-cols-5 bg-backgroundHeader border-b-2 border-highlight sticky top-0">
         <div class="col-span-4">
-            <img class="w-header p-1 ml-1" src="../../assets/logo.svg">
+            <img class="w-header p-1 ml-1 hover:cursor-pointer" src="../../assets/logo.svg" @click="dashboard">
         </div>
         <div class="grid grid-cols-2">
             <div class="flex justify-end items-center text-white2">
@@ -35,6 +35,9 @@ export default {
         Button
     },
     methods: {
+        dashboard(){
+            this.$router.push({ name: "Dashboard" });
+        },
         logout(){
             this.$router.push({ name: "Login" });
         },
