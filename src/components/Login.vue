@@ -71,6 +71,7 @@ export default {
                 const {data} = await http.post('/login', this.userAxios);
                 this.auth.setToken(data.token);
                 this.auth.setUser(data.user);
+                this.auth.setIsAuth(true);
                 this.$router.push({ name: "Dashboard" })
             } catch (error) {
                 // console.log(error?.response?.data);

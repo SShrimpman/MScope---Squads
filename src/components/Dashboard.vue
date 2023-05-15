@@ -20,19 +20,25 @@ export default {
     MenuAdmin,
     MenuMember
   },
-  computed: {
-    user(){
-      // return userStore().user.role;
-      return userLogin().role;
-    },
-    userHeader(){
-      // return userStore().user.fullName;
-      return userLogin().fullName
-    },
-    username(){
-      //return 'Hello ' + userStore().user.fullName + '!'
-      return 'Hello ' + userLogin().fullName + '!'
+  data() {
+    return {
+      user: userLogin().role,
+      userHeader: userLogin().fullName,
+      username: "Hello " + userLogin().fullName + "!"
     }
   },
+  //OLD WAY OF GETTING THE LOGGED USER INFO
+
+  // computed: {
+  //   user(){
+  //     return userStore().user.role;
+  //   },
+  //   userHeader(){
+  //     return userStore().user.fullName;
+  //   },
+  //   username(){
+  //     return 'Hello ' + userStore().user.fullName + '!'
+  //   }
+  // },
 }
 </script>

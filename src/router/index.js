@@ -48,17 +48,8 @@ const router = createRouter({
 
 router.beforeEach( async (to, from, next) => {
   if (to.meta?.requiresAuth) {
-    const auth = userLogin()
-    if (auth.token && auth.user){
-      const isAuthenticated = await auth.checkToken();
-      if (isAuthenticated) {
-        next()
-      } else {
-        next({name :'Unauthorized'})  
-      }
-    } else {
-      next({name :'Unauthorized'})
-    }
+    const auth = userLogin();
+    auth.isAuth ? next() : next({name :'Unauthorized'})  
   } else {
     next()
   }

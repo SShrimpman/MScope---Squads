@@ -1,10 +1,12 @@
 import { computed, ref } from "vue";
 import { defineStore } from "pinia";
 import http from '../services/http'
+import router from "../router";
 
 export const userLogin = defineStore('auth', () => {
     const token = ref(localStorage.getItem('token'));
     const user = ref(JSON.parse(localStorage.getItem('user')));
+    const isAuth = ref(false);
 
     function setToken(tokenValue){
         localStorage.setItem('token', tokenValue);
@@ -14,6 +16,10 @@ export const userLogin = defineStore('auth', () => {
     function setUser(userValue){
         localStorage.setItem('user', JSON.stringify(userValue));
         user.value = userValue;
+    }
+
+    function setIsAuth(auth){
+        isAuth.value = auth
     }
 
     const fullName = computed(() => {
@@ -40,6 +46,8 @@ export const userLogin = defineStore('auth', () => {
             });
             return data;
         } catch (error) {
+            clear()
+            router.push('/unauthorized')
             console.log(error.response.data);
         }
     }
@@ -47,6 +55,7 @@ export const userLogin = defineStore('auth', () => {
     function clear() {
         localStorage.removeItem('token');
         localStorage.removeItem('user');
+        isAuth.value = false;
         token.value = '';
         user.value= '';
     }
@@ -60,6 +69,8 @@ export const userLogin = defineStore('auth', () => {
         fullName,
         initials,
         role,
-        clear
+        clear,
+        setIsAuth,
+        isAuth
     }
 })
