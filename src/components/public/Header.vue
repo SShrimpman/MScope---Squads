@@ -7,7 +7,7 @@
             <div class="flex justify-end items-center text-white2">
                 <div class="grid bg-white2 text-black2 rounded-full h-9 w-9 mr-2 text-sm">
                     <div class="flex justify-center items-center">
-                        JS
+                        {{ initials }}
                     </div>
                     <div class="absolute mt-6 ml-6 text-tiny text-green-500 border-1 border-white2 bg-green-500 rounded-full h-3 w-3">a</div>
                 </div>
@@ -23,6 +23,7 @@
 
 <script>
 import Button from '../widgets/Button.vue';
+import { userLogin } from '../../stores/userLogin';
 
 export default {
     props: {
@@ -34,11 +35,15 @@ export default {
     components: {
         Button
     },
+    data(){
+        return {
+            auth: userLogin(),
+            initials: userLogin().initials
+        }
+    },
     methods: {
-        dashboard(){
-            this.$router.push({ name: "Dashboard" });
-        },
         logout(){
+            this.auth.clear();
             this.$router.push({ name: "Login" });
         },
     }
