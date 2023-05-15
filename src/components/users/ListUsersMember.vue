@@ -22,6 +22,7 @@ import Button from '../widgets/Button.vue';
 import Menu from '../public/MenuMember.vue';
 import { mapState } from 'pinia';
 import { userStore } from '../../stores/userStore';
+import { userLogin } from '../../stores/userLogin';
 import Header from '../public/Header.vue';
 
 export default {
@@ -36,6 +37,8 @@ export default {
     },
     data() {
         return {
+            userLogged: userLogin().role,
+            userHeader: userLogin().fullName,
             titles: [
                 { name: 'Name' },
                 { name: 'Role' }
@@ -44,12 +47,12 @@ export default {
     },
     computed: {
         ...mapState(userStore, ['getUsers']),
-        userLogged() {
-            return userStore().user.role;
-        },
-        userHeader(){
-            return userStore().user.fullName
-        },
+        // userLogged() {
+        //     return userStore().user.role;
+        // },
+        // userHeader(){
+        //     return userStore().user.fullName
+        // },
     },
 }
 </script>

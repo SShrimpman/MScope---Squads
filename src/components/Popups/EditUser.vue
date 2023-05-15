@@ -45,6 +45,7 @@
 <script>
 import Button from '../widgets/Button.vue';
 import { userStore } from '../../stores/userStore';
+import { userLogin } from '../../stores/userLogin';
 
 export default {
     props: {
@@ -58,6 +59,7 @@ export default {
     },
     data(){
         return {
+            userLogged: userLogin().role,
             form : {
                 id : null,
                 fullName : '',

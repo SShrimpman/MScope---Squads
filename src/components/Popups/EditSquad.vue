@@ -48,15 +48,16 @@
 </template>
 
 <script>
+import { userLogin } from '../../stores/userLogin';
 import { userStore } from '../../stores/userStore';
-import { mapState } from 'pinia';
 import Button from '../widgets/Button.vue';
+import { mapState } from 'pinia';
 
 export default {
-    setup(){
-        const userStoreT = userStore();
-        return { userStoreT}
-    },
+    // setup(){
+    //     const userStoreT = userStore();
+    //     return { userStoreT}
+    // },
     props: {
         squadToEdit: {
             type: Object,
@@ -68,6 +69,7 @@ export default {
     },
     data(){
         return {
+            userLogged: userLogin().role,
             form : {
                 id : null,
                 squadName : '',
@@ -84,9 +86,9 @@ export default {
     },
     computed: {
         ...mapState(userStore, ['getUsers']),
-        userLogged() {
-            return userStore().user.role;
-        },
+        // userLogged() {
+        //     return userStore().user.role;
+        // },
     },
     methods: {
         hideAdmin(userRole){

@@ -41,6 +41,7 @@ import Menu from '../public/MenuAdmin.vue'
 import Button from '../widgets/Button.vue'
 import { useToast } from "vue-toastification";
 import Header from '../public/Header.vue';
+import { userLogin } from '../../stores/userLogin';
 
 export default {
     setup() {
@@ -55,6 +56,8 @@ export default {
     },
     data() {
         return {
+            userLogged: userLogin().role,
+            userHeader: userLogin().fullName,
             addSquad: new squad(),
             toast : useToast(),
             toastCSS : {
@@ -75,12 +78,12 @@ export default {
     },
     computed: {
         ...mapState(userStore, ['getUsers']),
-        userLogged() {
-            return userStore().user.role;
-        },
-        userHeader(){
-            return userStore().user.fullName
-        }
+        // userLogged() {
+        //     return userStore().user.role;
+        // },
+        // userHeader(){
+        //     return userStore().user.fullName
+        // }
     },
     methods: {
         hideAdmin(userRole){

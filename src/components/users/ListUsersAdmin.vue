@@ -34,6 +34,7 @@ import Button from '../widgets/Button.vue';
 import Menu from '../public/MenuAdmin.vue';
 import { mapState } from 'pinia';
 import { userStore } from '../../stores/userStore';
+import { userLogin } from '../../stores/userLogin';
 import DeleteUser from '../Popups/DeleteUser.vue';
 import EditUser from '../Popups/EditUser.vue';
 import { useToast } from "vue-toastification";
@@ -53,6 +54,8 @@ export default {
     },
     data() {
         return {
+            userLogged: userLogin().role,
+            userHeader: userLogin().fullName,
             deleteUser: false,
             editUser: false,
             toast : useToast(),
@@ -79,12 +82,12 @@ export default {
     },
     computed: {
         ...mapState(userStore, ['getUsers']),
-        userLogged() {
-            return userStore().user.role;
-        },
-        userHeader(){
-            return userStore().user.fullName
-        },
+        // userLogged() {
+        //     return userStore().user.role;
+        // },
+        // userHeader(){
+        //     return userStore().user.fullName
+        // },
     },
     methods: {
         toggleEditPopup(user) {

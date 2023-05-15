@@ -28,10 +28,11 @@
 
 <script>
 import user from '../../models/user'
-import { userStore } from '../../stores/userStore'
+import Header from '../public/Header.vue'
 import Menu from '../public/MenuAdmin.vue'
 import Button from '../widgets/Button.vue'
-import Header from '../public/Header.vue'
+import { userStore } from '../../stores/userStore'
+import { userLogin } from '../../stores/userLogin'
 
 export default {
     setup() {
@@ -45,20 +46,22 @@ export default {
     },
     data() {
         return {
+            userHeader: userLogin().fullName,
+            userLogged: userLogin().role,
             addUser: new user(),
         };
     },
     created() {
         this.addUser.role = 'Select Role'
     },
-    computed: {
-        userLogged() {
-            return userStore().user.role;
-        },
-        userHeader(){
-            return userStore().user.fullName
-        },
-    },
+    // computed: {
+    //     userLogged() {
+    //         return userStore().user.role;
+    //     },
+    //     userHeader(){
+    //         return userStore().user.fullName
+    //     },
+    // },
     methods: {
         newUser() {
             this.userStoreT.add(this.addUser)

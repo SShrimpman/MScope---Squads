@@ -22,6 +22,7 @@ import { squadStore } from '../../stores/squadStore';
 import DeleteSquad from '../Popups/DeleteSquad.vue';
 import EditSquad from '../Popups/EditSquad.vue';
 import { userStore } from '../../stores/userStore';
+import { userLogin } from '../../stores/userLogin';
 import { useToast } from "vue-toastification";
 import Header from '../public/Header.vue';
 
@@ -39,6 +40,8 @@ export default {
     },
     data(){
         return {
+            userLogged: userLogin().role,
+            userHeader: userLogin().fullName,
             search: '',
             deleteSquad: false,
             editSquad: false,
@@ -61,12 +64,12 @@ export default {
     },
     computed: {
         ...mapState(squadStore, ['getSquads']),
-        userLogged() {
-            return userStore().user.role;
-        },
-        userHeader(){
-            return userStore().user.fullName
-        },
+        // userLogged() {
+        //     return userStore().user.role;
+        // },
+        // userHeader(){
+        //     return userStore().user.fullName
+        // },
         filteredSquads(){
             return this.getSquads.filter(squad => squad.reference.toLowerCase().includes(this.search.toLowerCase()))
         }

@@ -18,6 +18,7 @@ import Card from '../widgets/CardMember.vue';
 import { mapState } from 'pinia';
 import { squadStore } from '../../stores/squadStore';
 import { userStore } from '../../stores/userStore';
+import { userLogin } from '../../stores/userLogin';
 import Header from '../public/Header.vue';
 
 export default {
@@ -32,6 +33,8 @@ export default {
     },
     data(){
         return {
+            userLogged: userLogin().role,
+            userHeader: userLogin().fullName,
             search: '',
             deleteSquad: false,
             editSquad: false,
@@ -39,12 +42,12 @@ export default {
     },
     computed: {
         ...mapState(squadStore, ['getSquads']),
-        userLogged() {
-            return userStore().user.role;
-        },
-        userHeader(){
-            return userStore().user.fullName
-        },
+        // userLogged() {
+        //     return userStore().user.role;
+        // },
+        // userHeader(){
+        //     return userStore().user.fullName
+        // },
         filteredSquads(){
             return this.getSquads.filter(squad => squad.id.toLowerCase().includes(this.search.toLowerCase()))
         }
