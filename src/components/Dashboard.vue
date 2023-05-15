@@ -11,7 +11,8 @@
 import Header from './public/Header.vue';
 import MenuAdmin from './public/MenuAdmin.vue';
 import MenuMember from './public/MenuMember.vue';
-import { userStore } from '../stores/userStore';
+// import { userStore } from '../stores/userStore';
+import { userLogin } from '../stores/userLogin';
 
 export default {
   components: {
@@ -21,13 +22,16 @@ export default {
   },
   computed: {
     user(){
-      return userStore().user.role;
+      // return userStore().user.role;
+      return userLogin().role;
     },
     userHeader(){
-      return userStore().user.fullName
+      // return userStore().user.fullName;
+      return userLogin().fullName
     },
     username(){
-      return 'Hello ' + userStore().user.fullName + '!'
+      //return 'Hello ' + userStore().user.fullName + '!'
+      return 'Hello ' + userLogin().fullName + '!'
     }
   },
 }
