@@ -8,38 +8,61 @@ import CreateSquad from "../components/squads/CreateSquad.vue"
 import CreateUser from "../components/users/CreateUser.vue"
 import Login from "../components/Login.vue"
 import Unauthorized from "../components/Unauthorized.vue"
-import { userStore } from "../stores/userStore";
+import { userLogin } from  '../stores/userLogin'
+// import { userStore } from "../stores/userStore";
 
 const routes = [
-    { path: '/', name: 'Login', component: Login },
-    { path: '/unauthorized', name: 'Unauthorized', component: Unauthorized },
-    { path: '/dashboard', name: 'Dashboard', component: Dashboard, meta: { requiresAuth: true } },
-    { path: '/userslist', name: 'ListUsersAdmin', component: ListUsersAdmin, meta: { requiresAuth: true, role: 'TeamLeader' || 'Admin' } },
-    { path: '/userslist', name: 'ListUsersMember', component: ListUsersMember, meta: { requiresAuth: true, role: 'Member' } },
-    { path: '/squadslist', name: 'ListSquadsAdmin', component: ListSquadsAdmin, meta: { requiresAuth: true, role: 'TeamLeader' || 'Admin' } },
-    { path: '/squadslist', name: 'ListSquadsMember', component: ListSquadsMember, meta: { requiresAuth: true, role: 'Member' } },
-    { path: '/squadcreate', name: 'CreateSquad', component: CreateSquad, meta: { requiresAuth: true, role: 'TeamLeader' || 'Admin' } },
-    { path: '/usercreate', name: 'CreateUser', component: CreateUser, meta: { requiresAuth: true, role: 'TeamLeader' || 'Admin' } }
+  { path: '/', name: 'Login', component: Login },
+  { path: '/unauthorized', name: 'Unauthorized', component: Unauthorized },
+  { path: '/dashboard', name: 'Dashboard', component: Dashboard, meta: { requiresAuth: true } },
+  { path: '/userslist', name: 'ListUsersAdmin', component: ListUsersAdmin, meta: { requiresAuth: true, role: 'TeamLeader' || 'Admin' } },
+  { path: '/userslist', name: 'ListUsersMember', component: ListUsersMember, meta: { requiresAuth: true, role: 'Member' } },
+  { path: '/squadslist', name: 'ListSquadsAdmin', component: ListSquadsAdmin, meta: { requiresAuth: true, role: 'TeamLeader' || 'Admin' } },
+  { path: '/squadslist', name: 'ListSquadsMember', component: ListSquadsMember, meta: { requiresAuth: true, role: 'Member' } },
+  { path: '/squadcreate', name: 'CreateSquad', component: CreateSquad, meta: { requiresAuth: true, role: 'TeamLeader' || 'Admin' } },
+  { path: '/usercreate', name: 'CreateUser', component: CreateUser, meta: { requiresAuth: true, role: 'TeamLeader' || 'Admin' } }
 ]
 
 const router = createRouter({
-    history: createWebHistory(),
-    routes
+  history: createWebHistory(),
+  routes
 })
 
-router.beforeEach((to, from, next) => {
-  const isUserLoggedIn = userStore().isUserLoggedIn
+// OLD BEFOREEACH TO WORK WITH JUST LOCALSTORAGE
 
-    if (to.meta.requiresAuth) {
-      if (isUserLoggedIn) {
-        next();
+// router.beforeEach((to, from, next) => {
+//   const isUserLoggedIn = userStore().isUserLoggedIn
+
+//   if (to.meta.requiresAuth) {
+//     if (isUserLoggedIn) {
+//       next();
+//     } else {
+//       next("/unauthorized")
+//     }
+//   } else {
+//     next();
+//   }
+// })
+
+// NEW BEFOREEACH TO COMMUNICATE WITH THE ROUTES OF THE BACKEND (LARAVEL9)
+
+router.beforeEach( async (to, from, next) => {
+  if (to.meta?.requiresAuth) {
+    const auth = userLogin()
+    if (auth.token && auth.user){
+      const isAuthenticated = await auth.checkToken();
+      if (isAuthenticated) {
+        next()
       } else {
-        next("/unauthorized")
+        next({name :'Unauthorized'})  
       }
     } else {
-      next();
+      next({name :'Unauthorized'})
     }
-  })
-  
+  } else {
+    next()
+  }
+})
+
 
 export default router
