@@ -31,7 +31,7 @@
 <script>
 import Button from '../widgets/Button.vue';
 import Menu from '../public/MenuAdmin.vue';
-import { mapState } from 'pinia';
+// import { mapState } from 'pinia';
 import { userStore } from '../../stores/userStore';
 import { userLogin } from '../../stores/userLogin';
 import DeleteUser from '../Popups/DeleteUser.vue';
@@ -83,15 +83,15 @@ export default {
     },
     mounted(){
         http.get('/users')
-      .then(response => {
-        this.users = response.data;
-      })
-      .catch(error => {
-        console.error(error);
-      });
+            .then(response => {
+                this.users = response.data;
+            })
+            .catch(error => {
+              console.error(error);
+            });
     },
     computed: {
-        ...mapState(userStore, ['getUsers']),
+        // ...mapState(userStore, ['getUsers']),
         // userLogged() {
         //     return userStore().user.role;
         // },
