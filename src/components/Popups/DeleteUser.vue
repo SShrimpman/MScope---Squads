@@ -9,7 +9,7 @@
                     <div class="text-center"> Delete </div>
                 </div>
                 <div class="bg-white2 p-4 text-center">
-                    Are you sure you want do delete {{ userToDelete.fullName }} ?
+                    Are you sure you want do delete {{ userToDelete.firstName }} {{ userToDelete.lastName }} ?
                 </div>
                 <div class="bg-white2 rounded-b-xl">
                     <div class="flex justify-center space-x-2 mb-6">
