@@ -86,7 +86,6 @@ export default {
         http.get('/users')
       .then(response => {
         this.users = response.data;
-        console.log(this.users)
       })
       .catch(error => {
         console.error(error);
