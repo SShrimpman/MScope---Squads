@@ -7,10 +7,10 @@
                 <div v-for="title in titles" class="font-lg font-bold text-white2"> {{ title.name }} </div>
             </div>
             <div class="bg-white2 rounded-b-lg">
-                <div v-for="user in getUsers" :key="user.id"
+                <div v-for="user in users" :key="user.id"
                     class="grid grid-cols-3 w-full text-center h-16 content-center">
-                    <div class="font-lg text-darkBlue"> {{ user.fullName }} </div>
-                    <div class="font-lg text-darkBlue"> {{ user.role }} </div>
+                    <div class="font-lg text-darkBlue"> {{ user.firstName }} {{ user.lastName }} </div>
+                    <div class="font-lg text-darkBlue"> {{ user.role.name }} </div>
                     <div v-if="!(user.role === 'Admin' && userLogged === 'TeamLeader')"
                         class="flex-justify-center space-x-2">
                         <Button :text="'Edit'"
@@ -39,6 +39,7 @@ import DeleteUser from '../Popups/DeleteUser.vue';
 import EditUser from '../Popups/EditUser.vue';
 import { useToast } from "vue-toastification";
 import Header from '../public/Header.vue';
+import http from '../../services/http'
 
 export default {
     setup() {
@@ -56,6 +57,7 @@ export default {
         return {
             userLogged: userLogin().role,
             userHeader: userLogin().fullName,
+            users: [],
             deleteUser: false,
             editUser: false,
             toast : useToast(),
@@ -79,6 +81,16 @@ export default {
                 { name: 'Actions' }
             ],
         };
+    },
+    mounted(){
+        http.get('/users')
+      .then(response => {
+        this.users = response.data;
+        console.log(this.users)
+      })
+      .catch(error => {
+        console.error(error);
+      });
     },
     computed: {
         ...mapState(userStore, ['getUsers']),
