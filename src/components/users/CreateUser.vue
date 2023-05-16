@@ -108,14 +108,11 @@ export default {
             // this.userStoreT.add(this.addUser)
             http.post('/users', this.addUser)
                 .then(response => {
-                    console.log('User created successfully.');
-                    console.log(response)
                     this.$router.push({ name: "ListUsersAdmin" });
-                    this.toast.success('User Created Successfully!', this.toastCSS);
+                    this.toast.success(response.data.message, this.toastCSS);
                 })
                 .catch(error => {
-                    console.error('Failed to create user:', error);
-                    this.toast.error("User Couldn't be Created", this.toastCSS);
+                    this.toast.error(error.response.data.message, this.toastCSS);
                 });
         },
         // cancel(event) {
