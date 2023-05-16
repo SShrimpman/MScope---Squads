@@ -24,9 +24,8 @@
             </div>
         </div>
     </div>
-    <DeleteUser v-if="deleteUser" :userToDelete="userToDelete" @userDeleted="deleteThisUser"
-        @cancelUser="toggleDeletePopup" />
     <EditUser v-if="editUser" :userToEdit="userToEdit" @userEdited="editThisUser" @cancelEditUser="toggleEditPopup" />
+    <DeleteUser v-if="deleteUser" :userToDelete="userToDelete" @userDeleted="deleteThisUser" @cancelUser="toggleDeletePopup" />
 </template>
 
 <script>
@@ -145,7 +144,19 @@ export default {
         },
         deleteThisUser(userToDelete) {
             this.deleteUser = !this.deleteUser;
-            this.userStoreT.delete(userToDelete)
+            // this.userStoreT.delete(userToDelete)
+            http.delete(`/users/${userToDelete.id}`)
+                .then(response => {
+                    // Remove the deleted user from the users array
+                    const index = this.users.findIndex(user => user.id === userToDelete.id);
+                    if (index !== -1) {
+                        this.users.splice(index, 1);
+                    }
+                    this.toast.success(response.data.message, this.toastCSS);
+                })
+                .catch(error => {
+                    this.toast.error(error.response.data.message, this.toastCSS);
+                });
         }
     }
 }
