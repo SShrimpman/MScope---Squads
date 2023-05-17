@@ -3,7 +3,7 @@
     <Menu :title="'List Users'" />
     <div class="flex justify-center mt-8">
         <div class="border-4 border-black2 rounded-xl w-900">
-            <div class="grid grid-cols-3 text-center rounded-t-lg bg-blue-500 h-16 content-center">
+            <div class="grid grid-cols-3 text-center rounded-t-lg bg-backgroundHeader h-16 content-center">
                 <div v-for="title in titles" class="font-lg font-bold text-white2"> {{ title.name }} </div>
             </div>
             <div class="bg-white2 rounded-b-lg">
@@ -109,49 +109,61 @@ export default {
             this.userToDelete = user;
         },
         editThisUser(userToEdit) {
-            const userToUpdate = this.getUsers[this.getUsers.findIndex(userFind => userFind.id == userToEdit.id)]
-            const admins = this.getUsers.filter(user => user.role === 'Admin')
-            const teamLeaders = this.getUsers.filter(user => user.role === 'TeamLeader')
+            // const userToUpdate = this.getUsers[this.getUsers.findIndex(userFind => userFind.id == userToEdit.id)]
+            // const admins = this.getUsers.filter(user => user.role === 'Admin')
+            // const teamLeaders = this.getUsers.filter(user => user.role === 'TeamLeader')
 
-            if (userToUpdate.role != userToEdit.role) {
-                if (userToUpdate.role === 'Admin') {
-                    if (admins.length > 1) {
-                        this.editUser = !this.editUser;
-                        this.userStoreT.update(userToEdit);
-                        this.toast.success('User Updated Successfully!', this.toastCSS);
-                    } 
-                    else {
-                        this.toast.error('Need to have at least one Admin in the App!', this.toastCSS);
-                    }
-                } if (userToUpdate.role === 'TeamLeader') {
-                    if (teamLeaders.length > 1) {
-                        this.editUser = !this.editUser;
-                        this.userStoreT.update(userToEdit);
-                        this.toast.success('User Updated Successfully!', this.toastCSS);
-                    } else {
-                        this.toast.error('Need to have at least one TeamLeader in the App!', this.toastCSS);
-                    }
-                } else if (userToUpdate.role === 'Member'){
+            // if (userToUpdate.role != userToEdit.role) {
+            //     if (userToUpdate.role === 'Admin') {
+            //         if (admins.length > 1) {
+            //             this.editUser = !this.editUser;
+            //             this.userStoreT.update(userToEdit);
+            //             this.toast.success('User Updated Successfully!', this.toastCSS);
+            //         } 
+            //         else {
+            //             this.toast.error('Need to have at least one Admin in the App!', this.toastCSS);
+            //         }
+            //     } if (userToUpdate.role === 'TeamLeader') {
+            //         if (teamLeaders.length > 1) {
+            //             this.editUser = !this.editUser;
+            //             this.userStoreT.update(userToEdit);
+            //             this.toast.success('User Updated Successfully!', this.toastCSS);
+            //         } else {
+            //             this.toast.error('Need to have at least one TeamLeader in the App!', this.toastCSS);
+            //         }
+            //     } else if (userToUpdate.role === 'Member'){
+            //         this.editUser = !this.editUser;
+            //         this.userStoreT.update(userToEdit);
+            //         this.toast.success('User Updated Successfully!', this.toastCSS);
+            //     }
+            // } else {
+            //     this.editUser = !this.editUser;
+            //     this.userStoreT.update(userToEdit);
+            //     this.toast.success('User Updated Successfully!', this.toastCSS);
+            // }
+            http.put(`/users/${userToEdit.id}`, userToEdit)
+                .then(response => {
                     this.editUser = !this.editUser;
-                    this.userStoreT.update(userToEdit);
-                    this.toast.success('User Updated Successfully!', this.toastCSS);
-                }
-            } else {
-                this.editUser = !this.editUser;
-                this.userStoreT.update(userToEdit);
-                this.toast.success('User Updated Successfully!', this.toastCSS);
-            }
+                    // Finding the User on the Users Array
+                    const index = this.users.findIndex(user => user.id === userToEdit.id);
+                    // Update the user object in the array instead of replacing it completely
+                    this.users[index] = response.data.user;
+                    this.toast.success(response.data.message);
+                })
+                .catch(error => {
+                    // Handle the error
+                    this.toast.error(error.response.data.error);
+                });
         },
         deleteThisUser(userToDelete) {
-            this.deleteUser = !this.deleteUser;
             // this.userStoreT.delete(userToDelete)
             http.delete(`/users/${userToDelete.id}`)
-                .then(response => {
-                    // Remove the deleted user from the users array
+            .then(response => {
+                    this.deleteUser = !this.deleteUser;
+                    // Finding the User on the Users Array
                     const index = this.users.findIndex(user => user.id === userToDelete.id);
-                    if (index !== -1) {
-                        this.users.splice(index, 1);
-                    }
+                    // Remove the deleted user from the users array
+                    this.users.splice(index, 1);
                     this.toast.success(response.data.message, this.toastCSS);
                 })
                 .catch(error => {
