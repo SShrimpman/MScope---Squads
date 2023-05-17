@@ -17,20 +17,21 @@
 <script>
 import Menu from '../public/MenuAdmin.vue';
 import Card from '../widgets/CardAdmin.vue';
-import { mapState } from 'pinia';
-import { squadStore } from '../../stores/squadStore';
+// import { mapState } from 'pinia';
+// import { squadStore } from '../../stores/squadStore';
 import DeleteSquad from '../Popups/DeleteSquad.vue';
 import EditSquad from '../Popups/EditSquad.vue';
-import { userStore } from '../../stores/userStore';
+// import { userStore } from '../../stores/userStore';
 import { userLogin } from '../../stores/userLogin';
 import { useToast } from "vue-toastification";
 import Header from '../public/Header.vue';
+import http from '../../services/http'
 
 export default {
-    setup() {
-        const squadStoreT = squadStore()
-        return { squadStoreT }
-    },
+    // setup() {
+    //     const squadStoreT = squadStore()
+    //     return { squadStoreT }
+    // },
     components: {
         Header,
         Card,
@@ -42,6 +43,7 @@ export default {
         return {
             userLogged: userLogin().role,
             userHeader: userLogin().fullName,
+            squads: [],
             search: '',
             deleteSquad: false,
             editSquad: false,
@@ -62,8 +64,17 @@ export default {
             }
         }
     },
+    mounted(){
+        http.get('/squads')
+            .then(response => {
+                this.squads = response.data;
+            })
+            .catch(error => {
+              console.error(error);
+            });
+    },
     computed: {
-        ...mapState(squadStore, ['getSquads']),
+        // ...mapState(squadStore, ['getSquads']),
         // userLogged() {
         //     return userStore().user.role;
         // },
@@ -71,7 +82,7 @@ export default {
         //     return userStore().user.fullName
         // },
         filteredSquads(){
-            return this.getSquads.filter(squad => squad.reference.toLowerCase().includes(this.search.toLowerCase()))
+            return this.squads.filter(squad => squad.reference.toLowerCase().includes(this.search.toLowerCase()))
         }
     },
     methods: {
@@ -84,20 +95,20 @@ export default {
             this.squadToDelete = squad;
         },
         editThisSquad(squadToEdit){
-            const hasAdmin = squadToEdit.members.some(member => member.role === 'Admin');
-            const hasTeamLeader = squadToEdit.members.some(member => member.role === 'TeamLeader');
+            this.editSquad = !this.editSquad;
+            // const hasAdmin = squadToEdit.members.some(member => member.role === 'Admin');
+            // const hasTeamLeader = squadToEdit.members.some(member => member.role === 'TeamLeader');
             
-            if( hasAdmin || hasTeamLeader ) {
-                this.editSquad = !this.editSquad;
-                this.squadStoreT.update(squadToEdit)
-                this.toast.success('Squad Updated Successfully!', this.toastCSS);
-            } else {
-                this.toast.error( "Squad needs at least one Admin or TeamLeader!", this.toastCSS )
-            }
+            // if( hasAdmin || hasTeamLeader ) {
+            //     this.squadStoreT.update(squadToEdit)
+            //     this.toast.success('Squad Updated Successfully!', this.toastCSS);
+            // } else {
+            //     this.toast.error( "Squad needs at least one Admin or TeamLeader!", this.toastCSS )
+            // }
         },
         deleteThisSquad(squadToDelete , loggedUser){
             this.deleteSquad = !this.deleteSquad;
-            this.squadStoreT.delete(squadToDelete, loggedUser)
+            // this.squadStoreT.delete(squadToDelete, loggedUser)
         }
     }
 }
