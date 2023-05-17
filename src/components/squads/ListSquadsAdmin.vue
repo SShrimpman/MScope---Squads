@@ -106,9 +106,21 @@ export default {
             //     this.toast.error( "Squad needs at least one Admin or TeamLeader!", this.toastCSS )
             // }
         },
-        deleteThisSquad(squadToDelete , loggedUser){
-            this.deleteSquad = !this.deleteSquad;
+        // deleteThisSquad(squadToDelete , loggedUser)
+        deleteThisSquad(squadToDelete){
             // this.squadStoreT.delete(squadToDelete, loggedUser)
+            http.delete(`/squads/${squadToDelete.id}`)
+                .then(response => {
+                    this.deleteSquad = !this.deleteSquad;
+                    // Finding the Squad on the Squads Array
+                    const index = this.squads.findIndex(squad => squad.id === squadToDelete.id);
+                    // Remove the deleted squad from the users array
+                    this.squads.splice(index, 1);
+                    this.toast.success(response.data.message, this.toastCSS);
+                })
+                .catch(error => {
+                    this.toast.error(error.response.data.message, this.toastCSS);
+                });
         }
     }
 }
