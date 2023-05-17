@@ -14,10 +14,10 @@
                             <span class="text-lg"> Members </span>
                             <span class="text-sm"> (Hold Ctrl for multiple select) </span>
                         </label>
-                        <select multiple class="block p-1 m-2 border-2 border-black2 rounded-lg" v-model="addSquad.members">
-                            <option v-for="user in getUsers" :key="user.id" :class="{'hidden disabled': hideAdmin(user.role)}"
-                             :value="{ id: user.id, fullName: user.fullName, role: user.role }">
-                                {{ user.fullName }}
+                        <select multiple class="block p-1 m-2 border-2 border-black2 rounded-lg" v-model="addSquad.users_ids">
+                            <option v-for="user in users" :key="user.id" :value="user.id">
+                            <!-- :class="{'hidden disabled': hideAdmin(user.role)}" -->
+                                {{ user.firstName }} {{ user.lastName }}
                             </option>
                         </select>
                     </div>
@@ -36,12 +36,13 @@
 import squad from '../../models/squad'
 import { userStore } from '../../stores/userStore'
 import { squadStore } from '../../stores/squadStore'
-import { mapState } from 'pinia';
+// import { mapState } from 'pinia';
 import Menu from '../public/MenuAdmin.vue'
 import Button from '../widgets/Button.vue'
 import { useToast } from "vue-toastification";
 import Header from '../public/Header.vue';
 import { userLogin } from '../../stores/userLogin';
+import http from '../../services/http'
 
 export default {
     setup() {
@@ -58,7 +59,13 @@ export default {
         return {
             userLogged: userLogin().role,
             userHeader: userLogin().fullName,
-            addSquad: new squad(),
+            users: [],
+            // addSquad: new squad(),
+            addSquad: {
+                squadName: '',
+                reference: '',
+                users_ids: []
+            },
             toast : useToast(),
             toastCSS : {
                 position: "top-right",
@@ -76,15 +83,24 @@ export default {
             }
         };
     },
-    computed: {
-        ...mapState(userStore, ['getUsers']),
+    mounted(){
+        http.get('/users')
+            .then(response => {
+                this.users = response.data;
+            })
+            .catch(error => {
+              console.error(error);
+            });
+    },
+    // computed: {
+        // ...mapState(userStore, ['getUsers']),
         // userLogged() {
         //     return userStore().user.role;
         // },
         // userHeader(){
         //     return userStore().user.fullName
         // }
-    },
+    // },
     methods: {
         hideAdmin(userRole){
             if (userRole === 'Admin' && this.userLogged === 'TeamLeader'){
@@ -94,16 +110,29 @@ export default {
             }
         },
         newSquad(e) {
-            const hasAdmin = this.addSquad.members.some(member => member.role === 'Admin');
-            const hasTeamLeader = this.addSquad.members.some(member => member.role === 'TeamLeader');
+            // const hasAdmin = this.addSquad.members.some(member => member.role === 'Admin');
+            // const hasTeamLeader = this.addSquad.members.some(member => member.role === 'TeamLeader');
 
-            if( hasAdmin || hasTeamLeader ) {
-                this.squadStoreT.add(this.addSquad)
-                this.toast.success('Squad Created Successfully!', this.toastCSS);
-                this.$router.push({ name: "ListSquadsAdmin" });
-            } else {
-                this.toast.error( "Squad needs one Admin or TeamLeader!", this.toastCSS )
-            }
+            // if( hasAdmin || hasTeamLeader ) {
+            //     this.squadStoreT.add(this.addSquad)
+            //     this.toast.success('Squad Created Successfully!', this.toastCSS);
+            //     this.$router.push({ name: "ListSquadsAdmin" });
+            // } else {
+            //     this.toast.error( "Squad needs one Admin or TeamLeader!", this.toastCSS )
+            // }
+            const squadData = {
+                ...this.addSquad,
+                user_id: this.addSquad.users_ids
+            };
+
+            http.post('/squads', squadData)
+                .then(response => {
+                    this.$router.push({ name: "ListSquadsAdmin" });
+                    this.toast.success(response.data.message, this.toastCSS);
+                })
+                .catch(error => {
+                    this.toast.error(error.response.data.message, this.toastCSS);
+                });
         },
         cancel(event) {
             event.preventDefault();
