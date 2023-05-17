@@ -1,7 +1,7 @@
 <template>
     <div class="fixed flex justify-center h-full w-full top-0 left-0 items-center bg-transparentBg z-10">
         <div class="flex justify-center mt-8">
-            <div class="grid w-500 rounded-xl bg-blue-500 content-center">
+            <div class="grid w-500 rounded-xl bg-backgroundHeader content-center">
                 <div class="grid grid-cols-3 text-3xl font-bold text-white2 p-3">
                     <div class="flex justify-end">
                         <img src="../../assets/help-circle.svg" class="h-9">
