@@ -32,7 +32,7 @@
 import Button from '../widgets/Button.vue';
 import Menu from '../public/MenuAdmin.vue';
 // import { mapState } from 'pinia';
-import { userStore } from '../../stores/userStore';
+// import { userStore } from '../../stores/userStore';
 import { userLogin } from '../../stores/userLogin';
 import DeleteUser from '../Popups/DeleteUser.vue';
 import EditUser from '../Popups/EditUser.vue';
@@ -41,10 +41,10 @@ import Header from '../public/Header.vue';
 import http from '../../services/http'
 
 export default {
-    setup() {
-        const userStoreT = userStore()
-        return { userStoreT }
-    },
+    // setup() {
+    //     const userStoreT = userStore()
+    //     return { userStoreT }
+    // },
     components: {
         Header,
         Menu,
