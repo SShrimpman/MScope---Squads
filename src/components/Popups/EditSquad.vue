@@ -22,15 +22,15 @@
                                             <span class="text-lg"> Members </span>
                                             <span class="text-sm"> (Hold Ctrl for multiple select) </span> 
                                         </label>
-                                        <select multiple class="block p-1 m-2 border-2 border-black2 rounded-lg" v-model="form.members">
-                                            <option v-for="user in getUsers" :key="user.id" :class="{'hidden disabled': hideAdmin(user.role)}"
-                                             :value="{ fullName: user.fullName, role: user.role }">
-                                                {{ user.fullName }}
+                                        <select multiple class="block p-1 m-2 border-2 border-black2 rounded-lg" v-model="form.user_ids" :value="form.user_ids">
+                                            <option v-for="user in users" :key="user.id" :value="user.id">
+                                            <!-- :class="{'hidden disabled': hideAdmin(user.role)}" -->
+                                                {{ user.firstName }} {{ user.lastName }}
                                             </option>
                                         </select>
                                     </div>
                                 </div>
-                                <div class="flex justify-center mt-3 items-end gap-2">
+                                <div class="flex justify-center items-end gap-2">
                                     <Button :text="'Save'"
                                         class="text-blue-600 hover:text-white2 before:bg-blue-600 after:bg-blue-600 py-0.5 px-3.5"
                                          />
@@ -49,9 +49,10 @@
 
 <script>
 import { userLogin } from '../../stores/userLogin';
-import { userStore } from '../../stores/userStore';
+// import { userStore } from '../../stores/userStore';
 import Button from '../widgets/Button.vue';
-import { mapState } from 'pinia';
+// import { mapState } from 'pinia';
+import http from '../../services/http'
 
 export default {
     // setup(){
@@ -70,11 +71,13 @@ export default {
     data(){
         return {
             userLogged: userLogin().role,
+            users: [],
             form : {
                 id : null,
                 squadName : '',
                 reference : '',
-                members : []
+                user_ids: [],
+                users : []
             }
         }
     },
@@ -82,22 +85,31 @@ export default {
         this.form.id = this.squadToEdit.id;
         this.form.squadName = this.squadToEdit.squadName;
         this.form.reference = this.squadToEdit.reference;
-        this.form.members = this.squadToEdit.members;
+        this.form.user_ids = this.squadToEdit.user_ids;
+        this.form.users = this.squadToEdit.users;
+
+        http.get('/users')
+            .then(response => {
+                this.users = response.data;
+            })
+            .catch(error => {
+                console.error(error);
+            });
     },
     computed: {
-        ...mapState(userStore, ['getUsers']),
+        // ...mapState(userStore, ['getUsers']),
         // userLogged() {
         //     return userStore().user.role;
         // },
     },
     methods: {
-        hideAdmin(userRole){
-            if (userRole === 'Admin' && this.userLogged === 'TeamLeader'){
-                return true
-            } else {
-                return false
-            }
-        },
+        // hideAdmin(userRole){
+        //     if (userRole === 'Admin' && this.userLogged === 'TeamLeader'){
+        //         return true
+        //     } else {
+        //         return false
+        //     }
+        // },
         update() {
             this.$emit('squadEdited', this.form)
         },

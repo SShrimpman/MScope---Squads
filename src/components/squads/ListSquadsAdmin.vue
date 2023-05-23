@@ -5,10 +5,15 @@
         <input type="text" class="bg-white2 text-lg border-2 border-black2 h-12 w-900 pl-2 rounded-lg"
          placeholder="Search for a Squad Here" v-model="search">
     </div>
-    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 2xl:grid-cols-3 text-white2 mt-8 mb-8 sm:gap-10">
+    <!-- <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 2xl:grid-cols-3 text-white2 mt-8 mb-8 sm:gap-10">
         <div v-for="squad in filteredSquads" :key="squad.id" class="flex justify-center">
             <Card :squad="squad" @toggleEdit="toggleEditPopup" @toggleDelete="toggleDeletePopup(squad)" :user="userLogged"/>
         </div>
+    </div> -->
+    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 2xl:grid-cols-3 text-white2 mt-8 mb-8 sm:gap-10">
+      <div v-for="squad in filteredSquads" :key="squad.id" class="flex justify-center">
+        <Card :squad="squad" :users="users" @toggleEdit="toggleEditPopup" @toggleDelete="toggleDeletePopup(squad)" :user="userLogged"/>
+      </div>
     </div>
     <DeleteSquad v-if="deleteSquad" :squadToDelete="squadToDelete" @squadDeleted="deleteThisSquad"  @cancelSquad="toggleDeletePopup"/>
     <EditSquad v-if="editSquad" :squadToEdit="squadToEdit" @squadEdited="editThisSquad" @cancelEditSquad="toggleEditPopup"/>
@@ -44,6 +49,7 @@ export default {
             userLogged: userLogin().role,
             userHeader: userLogin().fullName,
             squads: [],
+            users: [],
             search: '',
             deleteSquad: false,
             editSquad: false,
@@ -72,6 +78,15 @@ export default {
             .catch(error => {
               console.error(error);
             });
+
+        // Fetch the users data from the backend API
+        http.get('/users')
+            .then(response => {
+            this.users = response.data;
+            })
+            .catch(error => {
+            console.error(error);
+            });
     },
     computed: {
         // ...mapState(squadStore, ['getSquads']),
@@ -95,7 +110,6 @@ export default {
             this.squadToDelete = squad;
         },
         editThisSquad(squadToEdit){
-            this.editSquad = !this.editSquad;
             // const hasAdmin = squadToEdit.members.some(member => member.role === 'Admin');
             // const hasTeamLeader = squadToEdit.members.some(member => member.role === 'TeamLeader');
             
@@ -105,6 +119,19 @@ export default {
             // } else {
             //     this.toast.error( "Squad needs at least one Admin or TeamLeader!", this.toastCSS )
             // }
+            http.put(`/squads/${squadToEdit.id}`, squadToEdit)
+                .then(response => {
+                    this.editSquad = !this.editSquad;
+                    // Finding the Squad on the Squads Array
+                    const index = this.squads.findIndex(squad => squad.id === squadToEdit.id);
+                    // Update the squad object in the array instead of replacing it completely
+                    this.squads[index] = response.data.squad;
+                    this.toast.success(response.data.message);
+                })
+                .catch(error => {
+                    // Handle the error
+                    this.toast.error(error.response.data.error);
+                });
         },
         // deleteThisSquad(squadToDelete , loggedUser)
         deleteThisSquad(squadToDelete){

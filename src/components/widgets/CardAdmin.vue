@@ -9,9 +9,13 @@
             </div>
             <div class="grid grid-cols-3 font-bold ml-3">
                 <div class="grid content-center col-span-2">
-                    <select class="h-7 w-40 border-2 border-black2 rounded-lg">
+                    <!-- <select class="h-7 w-40 border-2 border-black2 rounded-lg">
                         <option disabled selected hidden> See Members </option>
                         <option disabled v-for="user in squad.users">{{ user.firstName }} {{ user.lastName }}</option>
+                    </select> -->
+                    <select class="h-7 w-40 border-2 border-black2 rounded-lg">
+                        <option disabled selected hidden>See Members</option>
+                        <option disabled v-for="user in filteredUsers" :key="user.id">{{ user.firstName }} {{ user.lastName }}</option>
                     </select>
                 </div>
                 <div class="grid grid-cols-2 gap-2 m-4 mr-4">
@@ -36,6 +40,10 @@ export default {
             type: Object,
             required: true
         },
+        users: {
+            type: Array,
+            required: true
+        },
         user: {
             type: String,
             required: true,
@@ -47,6 +55,11 @@ export default {
     data() {
         return {
             dropdown: false
+        }
+    },
+    computed: {
+        filteredUsers() {
+            return this.users.filter(user => this.squad.user_ids.includes(user.id));
         }
     },
     methods: {
