@@ -2,11 +2,11 @@
     <Header :username="userHeader"/>
     <Menu :title="'List Users'" />
     <div class="flex justify-center mt-8">
-        <div class="border-4 border-black2 rounded-xl w-900">
+        <div class="border-4 border-backgroundHeader rounded-2xl w-900">
             <div class="grid grid-cols-3 text-center rounded-t-lg bg-backgroundHeader h-16 content-center">
                 <div v-for="title in titles" class="font-lg font-bold text-white2"> {{ title.name }} </div>
             </div>
-            <div class="bg-white2 rounded-b-lg">
+            <div class="bg-white2 rounded-b-xl">
                 <div v-for="user in users" :key="user.id"
                     class="grid grid-cols-3 w-full text-center h-16 content-center">
                     <div class="font-lg text-darkBlue"> {{ user.firstName }} {{ user.lastName }} </div>
